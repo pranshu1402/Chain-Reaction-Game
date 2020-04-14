@@ -1,0 +1,23 @@
+.landing-container {
+	position: relative;
+	border: 1px solid #eee;
+	width: 450px;
+	height: 450px;
+	margin: 20px auto;
+	box-shadow: 0 0 10px 3px #eee;
+	text-align: center;
+}
+
+.title {
+	padding: 10px;
+	color: #3a4091;
+	border-bottom: 1px solid #000;
+	font-size: 1.4em;
+	font-weight: 500;
+}
+
+.description {
+	font-size: 0.9em;
+	font-weight: 400;
+	font-style: italic;
+}

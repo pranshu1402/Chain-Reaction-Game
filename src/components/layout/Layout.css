@@ -1,0 +1,40 @@
+main {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;    
+}
+
+li {
+	margin: 0 1px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	border-bottom: 2px solid #ddd;
+	border-width: 80%;
+	transition: 0.5s border-color;
+}
+
+li:hover {
+	border-color: orange;
+}
+
+li a {
+	text-decoration: none;
+}
+
+@media screen and (min-width: 768px) {
+	ul {
+		flex-direction: row;
+	}
+}

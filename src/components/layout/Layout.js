@@ -4,15 +4,15 @@ import Footer from '../footer/Footer';
 import './Layout.css';
 
 const Layout = props => {
-    return (
-        <>
-          <Header/>
-          <main>
-              {props.children}
-          </main>
-          <Footer/>  
-        </>
-    );
+	return (
+		<React.Fragment>
+		  <Header/>
+		  <main>
+			  {props.children}
+		  </main>
+		  <Footer/>  
+		</React.Fragment>
+	);
 };
 
 export default Layout;

@@ -1,0 +1,45 @@
+.app-header {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 10px;
+}
+
+.logo {
+	margin: 1em;
+	font-weight: 800;
+	font-size: 1.2em;
+}
+
+.toggle {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.toggle span {
+	width: 30px;
+	height: 2px;
+	margin: 3px;
+	background-color: #000;
+}
+
+@media screen and (min-width: 768px) {
+	.toggle {
+		display: none;
+	}
+}
+
+.list-link {
+	color: #000;
+	margin: 8px;
+	transition: 0.25s color;
+}
+
+li:hover .list-link{
+	color: orange;
+}
