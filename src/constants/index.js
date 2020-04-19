@@ -1,0 +1,1 @@
+export const directions = [{row: -1, col: 0, modifier: '-top'}, {row: 0, col: 1, modifier: '-right'}, {row: 1, col: 0, modifier: '-bottom'}, {row: 0, col: -1, modifier: '-left'}]

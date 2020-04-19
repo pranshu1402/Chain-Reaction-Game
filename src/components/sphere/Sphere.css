@@ -1,0 +1,20 @@
+.sphere.shoot {
+	position: absolute;
+	display: inline-block;
+}
+
+.sphere.-top {
+	transform: translateY(-50px);
+}
+
+.sphere.-right {
+	transform: translateX(50px);
+}
+
+.sphere.-bottom {
+	transform: translateY(50px);
+}
+
+.sphere.-left {
+	transform: translateX(-50px);
+}
