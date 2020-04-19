@@ -1,45 +1,55 @@
 .app-header {
-	display: flex;
-	justify-content: space-between;
 	position: relative;
 	top: 0;
 	left: 0;
 	width: 100%;
 	border-bottom: 1px solid #eee;
-	margin-bottom: 10px;
+	box-shadow: 0 0 15px -3px #aaa;
+	margin-bottom: 20px;
 }
 
-.logo {
+/* Logo Styling */
+.logo-container {
 	margin: 1em;
 	font-weight: 800;
 	font-size: 1.2em;
 }
 
-.toggle {
+.logo {
+	text-decoration: none;
+	color: orange;
+}
+
+/* Logo Styling End*/
+
+/* Navigation Links Styling Start*/
+.nav-list {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.toggle span {
-	width: 30px;
-	height: 2px;
-	margin: 3px;
-	background-color: #000;
-}
-
-@media screen and (min-width: 768px) {
-	.toggle {
-		display: none;
-	}
 }
 
 .list-link {
 	color: #000;
+	font-weight: 400;
 	margin: 8px;
 	transition: 0.25s color;
 }
 
-li:hover .list-link{
+li:hover .list-link {
 	color: orange;
 }
+
+/* Navigation Links Styling End*/
+
+/* Toolbar Styling */
+.header-toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+	.toolbar-navigation {
+		display: none;
+	}
+}
+/* Toolbar Styling End*/

@@ -12,24 +12,15 @@ ul {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: flex-end;    
+	align-items: flex-end;
 }
 
 li {
 	margin: 0 1px;
 	height: 100%;
-	display: flex;
-	align-items: center;
-	border-bottom: 2px solid #ddd;
-	border-width: 80%;
-	transition: 0.5s border-color;
 }
 
-li:hover {
-	border-color: orange;
-}
-
-li a {
+a {
 	text-decoration: none;
 }
 

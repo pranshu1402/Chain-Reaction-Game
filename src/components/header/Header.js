@@ -1,39 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import DrawerToggle from './sideDrawer/DrawerToggle';
+import ToolBar from './toolbar/ToolBar';
+import SideDrawer from './sideDrawer/SideDrawer';
+// import Logo from './Logo';
 import './Header.css';
 
 const Header = () => {
+	const [openDrawer, setOpenDrawer] = useState(false);
+
 	return (
-		<div className="app-header">
-			{/* Logo */}
-			<div className="logo">LED GAMES</div>
+		<div className='app-header'>
+			<ToolBar setOpenDrawer={setOpenDrawer} openDrawer={openDrawer} />
 
-			{/* Need to make it mobile friendly with navbar toggle */}
-			<div className="toggle">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-
-			{/* Navbar - list of links */}
-			<nav className="nav-list">
-				<ul>
-					<li>
-						<a class="list-link" href="/history">Last Played</a>
-					</li>
-					<li>
-						<a class="list-link" href="/about">About</a>
-					</li>
-					<li>
-						<a class="list-link" href="/rules">Rules</a>
-					</li>
-					<li>
-						<a class="list-link" href="/contact">Contact</a>
-					</li>
-					<li>
-						<a class="list-link" href="/auth">Login</a>
-					</li>
-				</ul>
-			</nav>
+			<SideDrawer
+				open={openDrawer}
+				onCurtainClick={() => setOpenDrawer(!openDrawer)}
+			/>
 		</div>
 	);
 };
