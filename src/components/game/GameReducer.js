@@ -88,7 +88,7 @@ const resetBlock = block => {
 
 const updateBlock = (block, color, turn, isOverlap) => {
 	if (!isOverlap && block.present && block.color !== color) {
-		return block;
+		return null;
 	}
 	const newBlock = { ...block };
 	newBlock.color = color;
@@ -98,10 +98,12 @@ const updateBlock = (block, color, turn, isOverlap) => {
 };
 
 const handleBlockSplitting = (state, blockId, queue, isOverlap) => {
-	if (!blockId) return;
+	if (!blockId) return false;
 
 	let { blocks, turn, color } = state;
 	let newBlock = updateBlock(blocks[blockId], color, turn, isOverlap);
+
+	if (!newBlock) return false;
 
 	/* If block contains more than its capacity then its time to split */
 	if (newBlock.present > newBlock.capacity) {
@@ -110,12 +112,12 @@ const handleBlockSplitting = (state, blockId, queue, isOverlap) => {
 	}
 
 	blocks[blockId] = newBlock;
-	return;
+	return true;
 };
 
 const executeAMove = (state, blockId) => {
 	const queue = [];
-	handleBlockSplitting(state, blockId, queue, false);
+	if (!handleBlockSplitting(state, blockId, queue, false)) return state;
 
 	while (queue.length !== 0) {
 		const activeBlock = queue.shift();
