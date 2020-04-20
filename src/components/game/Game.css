@@ -10,10 +10,3 @@
 	width: 400px;
 	height: 400px;
 }
-
-.block {
-	display: inline-block;
-	min-width: 50px;
-	min-height: 50px;
-	border: 1px solid black;
-}

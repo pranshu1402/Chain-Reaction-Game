@@ -17,7 +17,9 @@
 
 .logo {
 	text-decoration: none;
-	color: orange;
+	background-image: linear-gradient(92deg, #f35626 0%, #feab3a 100%);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 /* Logo Styling End*/

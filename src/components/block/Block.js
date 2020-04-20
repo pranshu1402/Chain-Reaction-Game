@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Sphere from '../sphere/Sphere';
+import Molecule from '../molecule/Molecule';
 import { EXECUTE_MOVE } from '../../constants/ActionTypes';
 import { connect } from 'react-redux';
+import './Block.css';
 
 class Block extends Component {
 	constructor(props) {
@@ -24,7 +25,7 @@ class Block extends Component {
 				style={styles}
 				onClick={() => onBlockClick(blockId)}
 			>
-				<Sphere sphereCount={blockData.present} />
+				<Molecule sphereCount={blockData.present} color={blockData.color} />
 			</button>
 		);
 	}

@@ -50,16 +50,14 @@ const createNewBlocks = grid => {
 	return blocks;
 };
 
-const setNextPlayerTurn = (state, turn) => {
-	const newState = { ...state };
+const setNextPlayerTurn = newState => {
 	newState.turn++;
 	newState.turn %= newState.numPlayers;
-	newState.color = newState.players[turn].color;
-	return newState;
+	newState.color = newState.players[newState.turn].color;
+	return { turn: newState.turn, color: newState.color };
 };
 
 const initGame = homeState => {
-	console.log('init Game', homeState);
 	const newState = { ...initialGameState };
 	newState.grid = homeState.grid;
 	newState.numPlayers = homeState.numPlayers;
@@ -88,7 +86,10 @@ const resetBlock = block => {
 	return createNewBlock(block.row, block.col);
 };
 
-const updateBlock = (block, color, turn) => {
+const updateBlock = (block, color, turn, isOverlap) => {
+	if (!isOverlap && block.present && block.color !== color) {
+		return block;
+	}
 	const newBlock = { ...block };
 	newBlock.color = color;
 	newBlock.player = `p${turn}`;
@@ -96,43 +97,36 @@ const updateBlock = (block, color, turn) => {
 	return newBlock;
 };
 
-const shouldBlockSplit = newBlock => {
+const handleBlockSplitting = (state, blockId, queue, isOverlap) => {
+	if (!blockId) return;
+
+	let { blocks, turn, color } = state;
+	let newBlock = updateBlock(blocks[blockId], color, turn, isOverlap);
+
+	/* If block contains more than its capacity then its time to split */
 	if (newBlock.present > newBlock.capacity) {
-		resetBlock(newBlock);
-		return true;
+		newBlock = resetBlock(newBlock);
+		queue.push(newBlock);
 	}
 
-	return false;
+	blocks[blockId] = newBlock;
+	return;
 };
 
 const executeAMove = (state, blockId) => {
-	let { blocks, turn, color } = state;
 	const queue = [];
-	blocks = { ...blocks };
-	blocks[blockId] = updateBlock(blocks[blockId], color, turn);
-	if (shouldBlockSplit(blocks[blockId])) {
-		queue.push(blocks[blockId]);
-	}
+	handleBlockSplitting(state, blockId, queue, false);
 
 	while (queue.length !== 0) {
 		const activeBlock = queue.shift();
+		console.log(activeBlock);
 		for (let i = 0; i < 4; i++) {
 			const nextBlockCoordinate = calcCoordinates(directions[i], activeBlock);
-			let nextBlock = nextBlockCoordinate ? blocks[nextBlockCoordinate] : null;
-
-			if (!nextBlock) {
-				continue;
-			}
-
-			nextBlock = updateBlock(nextBlock, color, turn);
-			blocks[nextBlockCoordinate] = nextBlock;
-			if (shouldBlockSplit(nextBlock)) {
-				queue.push(nextBlock);
-			}
+			handleBlockSplitting(state, nextBlockCoordinate, queue, true);
 		}
 	}
 
-	return { ...state, blocks };
+	return { ...state, ...setNextPlayerTurn(state), blocks: { ...state.blocks } };
 };
 
 const gameReducer = (state = initialGameState, action) => {

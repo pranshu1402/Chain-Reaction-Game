@@ -19,3 +19,9 @@ code {
 main {
 	min-height: 100vh;
 }
+
+.form-control {
+	border: none;
+	text-decoration: underline;
+	min-width: 50px;
+}
