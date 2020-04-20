@@ -1,0 +1,49 @@
+.molecule {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.molecule > .atom {
+	left: 5%;
+	top: 15%;
+}
+
+.molecule .atom:nth-child(2) {
+	left: 40%;
+	top: 10%;
+}
+
+.molecule .atom:nth-child(3) {
+	left: 25%;
+	top: 40%;
+}
+
+.atom {
+	position: absolute;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+/* .atom.shoot {
+	position: absolute;
+} */
+
+.atom.-top {
+	transform: translateY(-50px);
+}
+
+.atom.-right {
+	transform: translateX(50px);
+}
+
+.atom.-bottom {
+	transform: translateY(50px);
+}
+
+.atom.-left {
+	transform: translateX(-50px);
+}
