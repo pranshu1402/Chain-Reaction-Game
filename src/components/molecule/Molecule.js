@@ -1,5 +1,6 @@
 import React from 'react';
 import Atom from './Atom';
+import Spin from 'react-reveal/Spin';
 import './Molecule.css';
 
 const getSphereComponent = (count, color) => {
@@ -27,13 +28,15 @@ const getSphereComponent = (count, color) => {
 };
 const Sphere = props => {
 	return (
-		<div className='molecule'>
-			{/* Functionalities of spheres */}
-			{/* 1.On click => 
+		<Spin forever={true} duration={5000}>
+			<div className='molecule'>
+				{/* Functionalities of spheres */}
+				{/* 1.On click => 
 				a. Do nothing if player color not matching
 				b. Update & split count if color matches */}
-			{getSphereComponent(props.sphereCount, props.color)}
-		</div>
+				{getSphereComponent(props.sphereCount, props.color)}
+			</div>
+		</Spin>
 	);
 };
 
