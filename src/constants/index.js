@@ -1,1 +1,6 @@
-export const directions = [{row: -1, col: 0, modifier: '-top'}, {row: 0, col: 1, modifier: '-right'}, {row: 1, col: 0, modifier: '-bottom'}, {row: 0, col: -1, modifier: '-left'}]
+export const directions = [
+	{ row: -1, col: 0, direction: 'top' },
+	{ row: 0, col: 1, direction: 'right' },
+	{ row: 1, col: 0, direction: 'bottom' },
+	{ row: 0, col: -1, direction: 'left' },
+];

@@ -17,7 +17,7 @@ class Landing extends React.Component {
 		const id = `#player${player}`;
 		const name = document.querySelector(`${id} .player-name`).value;
 		const color = document.querySelector(`${id} .player-color`).value;
-		players.push({ id, name, color });
+		players.push({ id, name, color, cellCount: 0, turnsCount: 0 });
 
 		console.log(players);
 		return name && color ? true : false;

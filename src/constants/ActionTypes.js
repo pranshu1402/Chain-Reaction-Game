@@ -5,3 +5,5 @@ export const SET_GAME_DETAILS = 'SET_GAME_DETAILS';
 export const INITIALIZE_GAME = 'INITIALIZE_GAME';
 export const EXECUTE_MOVE = 'EXECUTE_MOVE';
 export const UNDO_MOVE = 'UNDO_MOVE';
+export const EVALUATE_BOARD = 'EVALUATE_BOARD';
+export const UPDATE_TURN = 'UPDATE_TURN';

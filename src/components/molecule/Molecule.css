@@ -1,68 +1,58 @@
 .molecule {
-	position: relative;
+	/* position: relative; */
 	height: 100%;
 	width: 100%;
-	/* animation: wobble 7s infinite; */
 }
 
-/* @keyframes wobble {
-	0% {
-		transform: translate(0.1px) rotateZ(0deg);
-	}
-	25% {
-		transform: translate(-0.1px) rotateZ(90deg);
-	}
-	50% {
-		transform: translate(0.2px) rotateZ(180deg);
-	}
-	75% {
-		transform: translate(-0.1px) rotateZ(270deg);
-	}
-	100% {
-		transform: translate(-0.1px) rotateZ(360deg);
-	}
-} */
-
-.molecule > .atom {
+.molecule > .atom:not(.shoot) {
 	left: 5%;
 	top: 15%;
 }
 
-.molecule .atom:nth-child(2) {
+.molecule > .atom:not(.shoot):nth-child(2) {
 	left: 40%;
 	top: 10%;
 }
 
-.molecule .atom:nth-child(3) {
+.molecule > .atom:not(.shoot):nth-child(3) {
 	left: 25%;
 	top: 40%;
 }
+
+/* .react-reveal {
+	display: inline-block;
+	position: absolute;
+} */
 
 .atom {
 	position: absolute;
 	display: inline-block;
 	width: 20px;
 	height: 20px;
+	left: 10px;
+	top: 15px;
 	border-radius: 50%;
 	border: 1px solid black;
 }
 
-/* .atom.shoot {
-	position: absolute;
-} */
-
-.atom.-top {
-	transform: translateY(-50px);
+.atom.shoot {
+	top: 15px;
+	left: 10px;
+	transition: top 1s linear, left 1s linear;
 }
 
-.atom.-right {
-	transform: translateX(50px);
+.shoot.-top {
+	top: -40px;
 }
 
-.atom.-bottom {
-	transform: translateY(50px);
+.shoot.-right {
+	left: 60px;
 }
 
-.atom.-left {
-	transform: translateX(-50px);
+.shoot.-bottom {
+	top: 65px;
+}
+
+.shoot.-left {
+	left: -40px;
 }

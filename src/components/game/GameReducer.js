@@ -4,6 +4,7 @@ import { directions } from '../../constants/index';
 const initialGameState = {
 	grid: 8,
 	numPlayers: 2,
+	isGameActive: false,
 	players: null,
 	blocks: null,
 	turn: -1,
@@ -15,27 +16,28 @@ const initialGameState = {
 	obj to x, y obj one by one and makeChanges in the coordinates thus obtained if exists.
 */
 
-const calcCapacity = (row, col) => {
+const calcCapacity = (row, col, grid) => {
 	let capacity = 1;
-	if (row !== 0) {
+	if (row !== 0 && row < grid - 1) {
 		capacity++;
 	}
 
-	if (col !== 0) {
+	if (col !== 0 && col < grid - 1) {
 		capacity++;
 	}
 
 	return capacity;
 };
 
-const createNewBlock = (i, j) => {
+const createNewBlock = (i, j, grid) => {
 	return {
 		row: i,
 		col: j,
 		player: '',
 		color: '',
-		capacity: calcCapacity(i, j),
+		capacity: calcCapacity(i, j, grid),
 		present: 0,
+		directions: [],
 	};
 };
 
@@ -43,7 +45,7 @@ const createNewBlocks = grid => {
 	const blocks = {};
 	for (let i = 0; i < grid; i++) {
 		for (let j = 0; j < grid; j++) {
-			blocks[`${i}${j}`] = createNewBlock(i, j);
+			blocks[`${i}${j}`] = createNewBlock(i, j, grid);
 		}
 	}
 
@@ -65,6 +67,7 @@ const initGame = homeState => {
 	newState.blocks = createNewBlocks(newState.grid);
 	newState.turn = 0;
 	newState.color = homeState.players[0].color;
+	newState.isGameActive = true;
 	return newState;
 };
 
@@ -121,7 +124,6 @@ const executeAMove = (state, blockId) => {
 
 	while (queue.length !== 0) {
 		const activeBlock = queue.shift();
-		console.log(activeBlock);
 		for (let i = 0; i < 4; i++) {
 			const nextBlockCoordinate = calcCoordinates(directions[i], activeBlock);
 			handleBlockSplitting(state, nextBlockCoordinate, queue, true);
@@ -131,12 +133,48 @@ const executeAMove = (state, blockId) => {
 	return { ...state, ...setNextPlayerTurn(state), blocks: { ...state.blocks } };
 };
 
+/* Evaluate the game board before updating the turn */
+const evaluateBoard = (state, blocks) => {
+	const players = { ...state.players };
+	for (const blockId in blocks) {
+		const block = blocks[blockId];
+		const player = Number(block.player.slice(1));
+		players[player].cellCount += 1;
+	}
+
+	let activePlayers = 0,
+		winningCandidate;
+	for (const player in players) {
+		if (player.cellCount || !player.turnsCount) {
+			activePlayers++;
+			winningCandidate = player;
+		} else {
+			player.isActive = false;
+		}
+	}
+
+	if (activePlayers === 1) {
+		/* Stop the game */
+		return {
+			...state,
+			blocks: { ...blocks },
+			isGameActive: false,
+			winner: winningCandidate,
+		};
+		/* Update status & Reset block */
+	} else {
+		return { ...state, blocks: { ...blocks }, ...setNextPlayerTurn(state) };
+	}
+};
+
 const gameReducer = (state = initialGameState, action) => {
 	switch (action.type) {
 		case actionTypes.INITIALIZE_GAME:
 			return initGame(action.homeState);
 		case actionTypes.EXECUTE_MOVE:
 			return executeAMove(state, action.blockId);
+		case actionTypes.EVALUATE_BOARD:
+			return evaluateBoard(state, action.blocks);
 		default:
 			break;
 	}

@@ -12,7 +12,12 @@ const Board = props => {
 	return (
 		<div className='game-board'>
 			{blocks.map(block => (
-				<Block blockData={block} color={props.color} grid={props.grid} />
+				<Block
+					blockData={block}
+					color={props.color}
+					grid={props.grid}
+					onBlockClick={props.onBlockClick}
+				/>
 			))}
 		</div>
 	);

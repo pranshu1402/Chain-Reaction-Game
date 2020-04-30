@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/* import React, { Component } from 'react';
 import Molecule from '../molecule/Molecule';
 import { EXECUTE_MOVE } from '../../constants/ActionTypes';
 import { connect } from 'react-redux';
@@ -19,17 +19,32 @@ class Block extends Component {
 			height: `${100 / this.props.grid}%`,
 		};
 
+		const sphereCount = blockData.shouldBurst
+			? blockData.capacity + 1
+			: blockData.present;
+
 		return (
 			<button
 				className='block'
 				style={styles}
 				onClick={() => onBlockClick(blockId)}
 			>
-				<Molecule sphereCount={blockData.present} color={blockData.color} />
+				<Molecule
+					sphereCount={sphereCount}
+					isBurstRequired={blockData.shouldBurst}
+					color={blockData.color}
+				/>
 			</button>
 		);
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		blocks: state.game.blocks,
+		color: state.game.color,
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -37,4 +52,39 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(Block);
+export default connect(mapStateToProps, mapDispatchToProps)(Block); */
+
+import React from 'react';
+import Molecule from '../molecule/Molecule';
+import './Block.css';
+
+const Block = props => {
+	const { blockData, onBlockClick } = props;
+	const blockId = `${blockData.row}${blockData.col}`;
+	const styles = {
+		borderColor: props.color,
+		width: `${100 / props.grid}%`,
+		height: `${100 / props.grid}%`,
+	};
+
+	const sphereCount = blockData.shouldSplit
+		? blockData.capacity + 1
+		: blockData.present;
+
+	return (
+		<button
+			className='block'
+			style={styles}
+			onClick={() => onBlockClick(blockId)}
+		>
+			<Molecule
+				sphereCount={sphereCount}
+				isBurstRequired={blockData.shouldSplit}
+				directions={blockData.directions}
+				color={blockData.shouldSplit ? 'grey' : blockData.color}
+			/>
+		</button>
+	);
+};
+
+export default Block;
