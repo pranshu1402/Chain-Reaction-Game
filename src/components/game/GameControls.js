@@ -1,10 +1,15 @@
 import React from 'react';
+import Button from '../ui/button/Button';
 
-const GameControls = () => {
+const GameControls = props => {
 	return (
-		<div>
-			<button className='game-control'>UNDO</button>
-			<button className='game-control'>RESET</button>
+		<div className='game-controls-container'>
+			{props.controls.map(gameControl => (
+				<Button
+					buttonLabel={gameControl.label}
+					buttonClickHandler={gameControl.clickHandler}
+				/>
+			))}
 		</div>
 	);
 };

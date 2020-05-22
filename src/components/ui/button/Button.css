@@ -1,0 +1,10 @@
+.button {
+	border: 1px solid #f0f0f0;
+	/* background: linear-gradient(92deg, #f35626e8 0%, #feab3ae8 100%); */
+	background-color: orange;
+	min-width: 150px;
+	height: 40px;
+	font-weight: 600;
+	color: white;
+	margin: 10px;
+}

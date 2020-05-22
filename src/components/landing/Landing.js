@@ -1,7 +1,8 @@
 import React from 'react';
 import PlayerInit from '../player/PlayerInit';
 import { connect } from 'react-redux';
-import { SET_GAME_DETAILS, INITIALIZE_GAME } from '../../constants/ActionTypes';
+import { SET_GAME_DETAILS } from '../../constants/ActionTypes';
+import { initializeGame } from '../game/GameActions';
 import './Landing.css';
 
 class Landing extends React.Component {
@@ -83,7 +84,7 @@ class Landing extends React.Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		onGameStartClick: data => dispatch({ type: SET_GAME_DETAILS, data }),
-		initGame: data => dispatch({ type: INITIALIZE_GAME, homeState: data }),
+		initGame: homeState => dispatch(initializeGame(false, homeState)),
 	};
 };
 
