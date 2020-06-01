@@ -2,7 +2,6 @@ import React from 'react';
 import PlayerInit from '../player/PlayerInit';
 import { connect } from 'react-redux';
 import { SET_GAME_DETAILS } from '../../constants/ActionTypes';
-import { initializeGame } from '../game/GameActions';
 import './Landing.css';
 
 class Landing extends React.Component {
@@ -27,26 +26,23 @@ class Landing extends React.Component {
 	handleGameStart = () => {
 		console.log('/game');
 		let shouldInitGame = true;
-		const players = [];
+		let players = [];
 		for (let i = 0; i < this.state.numPlayers; i++) {
 			console.log(i);
 			shouldInitGame = shouldInitGame && this.getPlayerData(players, i + 1);
 		}
 
-		if (shouldInitGame) {
-			console.log(players);
-			this.props.initGame({ ...this.state, players });
-			this.props.history.push('/game');
-		} else {
-			this.props.initGame({
-				...this.state,
-				players: [
-					{ id: 'p1', name: 'a', color: 'red' },
-					{ id: 'p2', name: 'b', color: 'blue' },
-				],
-			});
-			this.props.history.push('/game');
+		/* Temporary addition for debugging purpose
+			Please throw error otherwise...
+		*/
+		if (!shouldInitGame) {
+			players = [];
+			players.push({ id: 'p1', name: 'a', color: 'red' });
+			players.push({ id: 'p2', name: 'b', color: 'blue' });
 		}
+
+		this.props.setPlayerDetails({ ...this.state, players });
+		this.props.history.push('/game');
 	};
 
 	render() {
@@ -61,10 +57,10 @@ class Landing extends React.Component {
 						className='form-control'
 						name='GridQuantity'
 						placeholder='8'
-						min='4'
-						max='8'
+						min='8'
+						max='12'
 					/>
-					<span>Choose Grid Size Between 4-8 (Default: 8)</span>
+					<span>Choose Grid Size Between 8-12 (Default: 8)</span>
 				</div>
 
 				<p className='description'>
@@ -83,8 +79,7 @@ class Landing extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGameStartClick: data => dispatch({ type: SET_GAME_DETAILS, data }),
-		initGame: homeState => dispatch(initializeGame(false, homeState)),
+		setPlayerDetails: data => dispatch({ type: SET_GAME_DETAILS, data }),
 	};
 };
 

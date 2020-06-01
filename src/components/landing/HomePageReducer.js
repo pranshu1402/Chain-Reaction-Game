@@ -4,6 +4,7 @@ const initialHomeState = {
 	players: null,
 	numPlayers: 2,
 	grid: 8,
+	shouldGameInitiate: false,
 };
 
 const homePageReducer = (state = initialHomeState, action) => {
@@ -11,9 +12,10 @@ const homePageReducer = (state = initialHomeState, action) => {
 		case actionTypes.SET_GAME_DETAILS:
 			return {
 				...state,
-				players: action.players,
-				numPlayers: action.numPlayers,
-				grid: action.grid,
+				players: action.data.players,
+				numPlayers: action.data.numPlayers,
+				grid: action.data.grid,
+				shouldGameInitiate: true,
 			};
 		default:
 			break;
