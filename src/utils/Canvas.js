@@ -1,13 +1,41 @@
-import { canvasId } from '../../constants/index';
+import { canvasId, directions } from '../constants/index';
 
-const getCanvasBrush = () => {
-	return document.getElementById(canvasId).getContext('2d');
+let canvas, canvasBrush;
+
+export const getClickLocation = event => {
+	let rect = canvas.getBoundingClientRect();
+	let row = Math.floor((event.clientY - rect.top) / 50);
+	let column = Math.floor((event.clientX - rect.left) / 50);
+	return { row, column };
 };
 
-const canvasBrush = getCanvasBrush();
+/* Draw Balls */
+const drawBalls = (row, column, balls, cellWidth) => {
+	/* find the center point of the block and create no of balls around that point */
+	const blockCenterX = cellWidth * (row + 0.5);
+	const blockCenterY = cellWidth * (column + 0.5);
 
-/* const getClickLocation = () => {}; */
+	for (let ball = 0; ball < balls; ball++) {
+		const xDist = blockCenterX + (balls - 1) * directions[ball].col;
+		const yDist = blockCenterY + (balls - 1) * directions[ball].row;
+		/* Create sphere with these coordinates as its center */
+	}
+};
 
+/* Animation & Transitions */
+const translateBalls = (row, column, balls, cellWidth, direction) => {
+	/* find the center point of the block and create no of balls around that point */
+	const blockCenterX = cellWidth * (row + 0.5);
+	const blockCenterY = cellWidth * (column + 0.5);
+	const currXPosition = blockCenterX + cellWidth * directions[direction].col;
+	const currYPosition = blockCenterY + cellWidth * directions[direction].row;
+	const finalXDist = blockCenterX + cellWidth * directions[direction].col;
+	const finalYDist = blockCenterY + cellWidth * directions[direction].row;
+
+	/* Translate ball image from initial Distance to the final positions */
+};
+
+/* Draw board base */
 const drawLines = (rows, columns, gridDimension, cellDimension, color) => {
 	canvasBrush.beginPath();
 	for (let dist = 0; dist <= gridDimension; dist += cellDimension) {
@@ -51,7 +79,10 @@ const drawGrid = (boardDimensions, currentColor) => {
 	);
 };
 
-export const initBoard = (boardDimensions, blocks, currentColor) => {
+export const initBoard = (boardDimensions, currentColor) => {
+	canvas = document.getElementById(canvasId);
+	canvasBrush = canvas.getContext('2d');
+
 	/* Clear canvas board first then draw out gridlines and next place the balls */
 	canvasBrush.clearRect(
 		0,
@@ -60,5 +91,6 @@ export const initBoard = (boardDimensions, blocks, currentColor) => {
 		boardDimensions.canvasHeight
 	);
 
+	console.log(boardDimensions, currentColor);
 	drawGrid(boardDimensions, currentColor);
 };

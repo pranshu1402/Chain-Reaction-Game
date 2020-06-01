@@ -7,7 +7,11 @@ const GameControls = props => {
 			{props.controls.map(gameControl => (
 				<Button
 					buttonLabel={gameControl.label}
-					buttonClickHandler={gameControl.clickHandler}
+					buttonClickHandler={() =>
+						gameControl.clickHandler(
+							gameControl.homeStateRequired ? props.homeState : ''
+						)
+					}
 				/>
 			))}
 		</div>

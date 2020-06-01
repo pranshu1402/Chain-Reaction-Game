@@ -8,7 +8,7 @@ const Board = props => {
 			className='game-board'
 			width={`${props.canvasDimensions.width}px`}
 			height={`${props.canvasDimensions.height}px`}
-			onClick={props.moveHandler}
+			onClick={props.clickHandler}
 		/>
 	);
 };

@@ -9,28 +9,19 @@ const initialGameState = {
 	turn: -1,
 	color: '',
 	isReset: false,
-	boardDimensions: null,
-};
-
-/* 
-	In blocks every block will have x and y coordinate val.
-	While executing move of a player just add [{1, 0} , {0, 1}, {-1, 0}, {0, -1}] these
-	obj to x, y obj one by one and makeChanges in the coordinates thus obtained if exists.
-*/
-
-const setNextPlayerTurn = newState => {
-	newState.turn++;
-	newState.turn %= newState.numPlayers;
-	newState.color = newState.players[newState.turn].color;
-	return { turn: newState.turn, color: newState.color };
+	boardDimensions: null
 };
 
 const gameReducer = (state = initialGameState, action) => {
 	switch (action.type) {
 		case actionTypes.INITIALIZE_GAME:
-			return action.newState;
+			return { ...state, ...action.newState };
 		case actionTypes.EXECUTE_MOVE:
-			return state;
+			return { ...state, ...action.newState };
+		case actionTypes.RESET_GAME:
+			return { ...state, ...action.newState };
+		case actionTypes.UNDO_MOVE:
+			return { ...state, ...action.newState };
 		default:
 			break;
 	}
