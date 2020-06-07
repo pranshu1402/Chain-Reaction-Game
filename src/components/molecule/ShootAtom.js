@@ -6,7 +6,7 @@ class ShootAtom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			when: true,
+			when: true
 		};
 	}
 
@@ -20,7 +20,7 @@ class ShootAtom extends Component {
 			right: false,
 			bottom: false,
 			top: false,
-			when: this.state.when,
+			when: this.state.when
 		};
 
 		options[this.props.shootDirection] = true;

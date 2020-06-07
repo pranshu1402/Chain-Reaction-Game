@@ -9,7 +9,7 @@ class Game extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			blocks: props.blocks,
+			blocks: props.blocks
 		};
 	}
 
@@ -65,6 +65,7 @@ class Game extends Component {
 	};
 
 	handleMoleculeBurst = () => {
+		console.log('in handleMolecule burst');
 		const { blocks } = this.state;
 		const { currentColor, turn } = this.props;
 		const newBlocks = { ...blocks };
@@ -105,7 +106,9 @@ class Game extends Component {
 		console.log('inside handleBlockClick', this.blocksToProcess);
 		while (this.blocksToProcess.length !== 0) {
 			this.blocksToProcess.push(null);
+			console.log('in handleBlock Click');
 			this.handleMoleculeBurst();
+			for (let i = 0; i < 100000; i++) {}
 		}
 
 		this.props.evaluateBoard(blocks);
@@ -118,7 +121,7 @@ class Game extends Component {
 			isGameActive,
 			grid,
 			history,
-			winner,
+			winner
 		} = this.props;
 		if (!blocks) {
 			history.replace('/');
@@ -149,13 +152,13 @@ const mapStateToProps = state => {
 		currentColor: state.game.color,
 		turn: state.game.turn,
 		isGameActive: state.game.isGameActive,
-		winner: state.game.winner,
+		winner: state.game.winner
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		evaluateBoard: blocks => dispatch({ type: EVALUATE_BOARD, blocks }),
+		evaluateBoard: blocks => dispatch({ type: EVALUATE_BOARD, blocks })
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

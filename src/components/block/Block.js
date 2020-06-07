@@ -64,12 +64,8 @@ const Block = props => {
 	const styles = {
 		borderColor: props.color,
 		width: `${100 / props.grid}%`,
-		height: `${100 / props.grid}%`,
+		height: `${100 / props.grid}%`
 	};
-
-	const sphereCount = blockData.shouldSplit
-		? blockData.capacity + 1
-		: blockData.present;
 
 	return (
 		<button
@@ -78,11 +74,22 @@ const Block = props => {
 			onClick={() => onBlockClick(blockId)}
 		>
 			<Molecule
-				sphereCount={sphereCount}
-				isBurstRequired={blockData.shouldSplit}
+				sphereCount={blockData.present}
+				isBurstRequired={false}
 				directions={blockData.directions}
-				color={blockData.shouldSplit ? 'grey' : blockData.color}
+				color={blockData.color}
 			/>
+			{blockData.shouldSplit ? (
+				<Molecule
+					sphereCount={blockData.capacity + 1}
+					isBurstRequired={blockData.shouldSplit}
+					directions={blockData.directions}
+					moleculeId={`atom${blockData.row}${blockData.col}`}
+					color={blockData.shouldSplit ? 'grey' : blockData.color}
+				/>
+			) : (
+				''
+			)}
 		</button>
 	);
 };

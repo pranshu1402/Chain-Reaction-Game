@@ -38,21 +38,26 @@
 .atom.shoot {
 	top: 15px;
 	left: 10px;
-	transition: top 1s linear, left 1s linear;
+	opacity: 100%;
+	transition: transform 0.5s linear, opacity 0s linear 0.5s;
 }
 
 .shoot.-top {
-	top: -40px;
+	opacity: 0%;
+	transform: translateY(-50px);
 }
 
 .shoot.-right {
-	left: 60px;
+	opacity: 0%;
+	transform: translateX(50px);
 }
 
 .shoot.-bottom {
-	top: 65px;
+	opacity: 0%;
+	transform: translateY(50px);
 }
 
 .shoot.-left {
-	left: -40px;
+	opacity: 0%;
+	transform: translateX(50px);
 }

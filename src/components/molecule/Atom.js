@@ -1,8 +1,24 @@
 import React from 'react';
 
 const Atom = props => {
+	let atomClasses = 'atom';
+
+	if (props.shootDirection) {
+		atomClasses = 'atom shoot';
+
+		/* To trigger transition */
+		setTimeout(() => {
+			console.log(props.atomId);
+			const atom = document.getElementById(props.atomId);
+			atom && atom.classList.add(`-${props.shootDirection}`);
+		}, 10);
+	}
 	return (
-		<span className='atom' style={{ backgroundColor: props.color }}></span>
+		<span
+			id={props.atomId}
+			className={atomClasses}
+			style={{ backgroundColor: props.color }}
+		></span>
 	);
 };
 
