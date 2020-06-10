@@ -1,7 +1,8 @@
 import React from 'react';
 import PlayerInit from '../player/PlayerInit';
 import { connect } from 'react-redux';
-import { SET_GAME_DETAILS, INITIALIZE_GAME } from '../../constants/ActionTypes';
+import { initGame } from '../game/GameActions';
+import { INITIALIZE_GAME } from '../../constants/ActionTypes';
 import './Landing.css';
 
 class Landing extends React.Component {
@@ -9,7 +10,7 @@ class Landing extends React.Component {
 		super(props);
 		this.state = {
 			grid: 8,
-			numPlayers: 2,
+			numPlayers: 2
 		};
 	}
 
@@ -18,17 +19,13 @@ class Landing extends React.Component {
 		const name = document.querySelector(`${id} .player-name`).value;
 		const color = document.querySelector(`${id} .player-color`).value;
 		players.push({ id, name, color, cellCount: 0, turnsCount: 0 });
-
-		console.log(players);
 		return name && color ? true : false;
 	};
 
 	handleGameStart = () => {
-		console.log('/game');
 		let shouldInitGame = true;
 		const players = [];
 		for (let i = 0; i < this.state.numPlayers; i++) {
-			console.log(i);
 			shouldInitGame = shouldInitGame && this.getPlayerData(players, i + 1);
 		}
 
@@ -37,13 +34,15 @@ class Landing extends React.Component {
 			this.props.initGame({ ...this.state, players });
 			this.props.history.push('/game');
 		} else {
-			this.props.initGame({
+			/* For debugging purposes */
+			this.props.initializeGame({
 				...this.state,
 				players: [
 					{ id: 'p1', name: 'a', color: 'red' },
-					{ id: 'p2', name: 'b', color: 'blue' },
-				],
+					{ id: 'p2', name: 'b', color: 'blue' }
+				]
 			});
+
 			this.props.history.push('/game');
 		}
 	};
@@ -82,8 +81,8 @@ class Landing extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGameStartClick: data => dispatch({ type: SET_GAME_DETAILS, data }),
-		initGame: data => dispatch({ type: INITIALIZE_GAME, homeState: data }),
+		initializeGame: homeData =>
+			dispatch({ type: INITIALIZE_GAME, gameState: initGame(homeData) })
 	};
 };
 

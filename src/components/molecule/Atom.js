@@ -10,8 +10,8 @@ const Atom = props => {
 		setTimeout(() => {
 			console.log(props.atomId);
 			const atom = document.getElementById(props.atomId);
-			atom && atom.classList.add(`-${props.shootDirection}`);
-		}, 10);
+			atom && atom.classList.add(`-${props.shootDirection.direction}`);
+		}, 1);
 	}
 	return (
 		<span

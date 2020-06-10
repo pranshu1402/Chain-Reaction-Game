@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import HomePageReducer from './components/landing/HomePageReducer';
 import GameReducer from './components/game/GameReducer';
 
 const composeEnhancers =
@@ -15,8 +14,7 @@ const composeEnhancers =
 		: null || compose;
 
 const rootReducer = combineReducers({
-	home: HomePageReducer,
-	game: GameReducer,
+	game: GameReducer
 	/* auth: authReducer */
 });
 

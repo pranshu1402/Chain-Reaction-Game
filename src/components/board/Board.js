@@ -11,8 +11,9 @@ const Board = props => {
 
 	return (
 		<div className='game-board'>
-			{blocks.map(block => (
+			{blocks.map((block, index) => (
 				<Block
+					key={`block${index}`}
 					blockData={block}
 					color={props.color}
 					grid={props.grid}

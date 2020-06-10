@@ -12,6 +12,7 @@ const getAtoms = (count, color, moleculeId, directions) => {
 		while (counter < count) {
 			atoms.push(
 				<Atom
+					key={`shoot${moleculeId}${counter}`}
 					color={color}
 					atomId={`shoot${moleculeId}${counter}`}
 					shootDirection={directions[counter]}
@@ -23,7 +24,13 @@ const getAtoms = (count, color, moleculeId, directions) => {
 	} else {
 		let counter = 0;
 		while (counter++ < count) {
-			atoms.push(<Atom color={color} atomId={`${moleculeId}${counter}`} />);
+			atoms.push(
+				<Atom
+					key={`${moleculeId}${counter}`}
+					color={color}
+					atomId={`${moleculeId}${counter}`}
+				/>
+			);
 		}
 	}
 
@@ -31,18 +38,19 @@ const getAtoms = (count, color, moleculeId, directions) => {
 };
 
 const getSphereComponent = props => {
+	console.log(props);
 	const { sphereCount, color, isBurstRequired, directions, moleculeId } = props;
 	switch (sphereCount) {
 		case 1:
-			return getAtoms(sphereCount, color);
+			return getAtoms(sphereCount, color, moleculeId);
 		case 2:
 			return isBurstRequired
 				? getAtoms(sphereCount, color, moleculeId, directions)
-				: getAtoms(sphereCount, color);
+				: getAtoms(sphereCount, color, moleculeId);
 		case 3:
 			return isBurstRequired
 				? getAtoms(sphereCount, color, moleculeId, directions)
-				: getAtoms(sphereCount, color);
+				: getAtoms(sphereCount, color, moleculeId);
 		case 4:
 			return getAtoms(sphereCount, color, moleculeId, directions);
 		default:
@@ -51,15 +59,8 @@ const getSphereComponent = props => {
 };
 
 const Sphere = props => {
-	const spheres = (
-		<div className='molecule'>
-			{/* Functionalities of spheres */}
-			{/* 1.On click => 
-				a. Do nothing if player color not matching
-				b. Update & split count if color matches */}
-			{getSphereComponent(props)}
-		</div>
-	);
+	const spheres = <div className='molecule'>{getSphereComponent(props)}</div>;
+
 	return props.isBurstRequired ? (
 		spheres
 	) : (
