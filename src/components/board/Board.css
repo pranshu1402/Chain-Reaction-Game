@@ -1,6 +1,6 @@
 .game-board {
-	width: 440px;
+	width: 410px;
 	height: 440px;
-	margin: 10px;
+	margin: 25px auto;
 	position: relative;
 }
