@@ -170,7 +170,7 @@ const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
 	} else {
 		clearInterval(interval);
 		/* TODO: Evaluate board */
-
+		evaluateBoard(gameState);
 		setNextPlayerTurn(gameState);
 
 		/* When updating stops dispatch next player turn */

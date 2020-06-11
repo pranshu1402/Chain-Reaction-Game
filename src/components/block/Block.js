@@ -61,9 +61,7 @@ import './Block.css';
 const Block = props => {
 	const { blockData, onBlockClick } = props;
 	const styles = {
-		borderColor: props.color,
-		width: `${100 / props.grid}%`,
-		height: `${100 / props.grid}%`
+		borderColor: props.color
 	};
 
 	return (
