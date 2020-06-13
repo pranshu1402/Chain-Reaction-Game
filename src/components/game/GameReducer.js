@@ -8,7 +8,8 @@ const initialGameState = {
 	turn: -1,
 	color: '',
 	isGameActive: false,
-	winner: ''
+	winner: '',
+	status: 'ACTIVE'
 };
 
 const gameReducer = (state = initialGameState, action) => {

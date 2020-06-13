@@ -78,13 +78,42 @@ const calcCoordinates = (direction, block) => {
 }; */
 
 const setNextPlayerTurn = newState => {
-	console.log('setNextPlayerTurn');
 	newState.turn++;
 	newState.turn %= newState.players.length;
 	newState.color = newState.players[newState.turn].color;
 };
 
-const evaluateBoard = gameState => {};
+const evaluateBoard = gameState => {
+	const newPlayers = [...gameState.players];
+	for (const blockId in gameState.blocks) {
+		const player = Number(gameState.blocks[blockId].player.slice(1));
+		newPlayers[player].cellCount += 1;
+	}
+
+	let activePlayers = 0,
+		winningCandidate = { cellCount: 0 };
+	for (const player of newPlayers) {
+		if (player.cellCount || !player.turnsCount) {
+			activePlayers++;
+			if (player.cellCount > winningCandidate.cellCount)
+				winningCandidate = player;
+		} else {
+			player.isActive = false;
+		}
+	}
+
+	if (activePlayers === 1) {
+		/* Stop the game */
+		return {
+			...gameState,
+			isGameActive: false,
+			winner: winningCandidate
+		};
+		/* TODO: Update status & Reset block */
+	} else {
+		return gameState;
+	}
+};
 
 /* Check if its a valid move based on: 
 	- Current player color
@@ -93,8 +122,9 @@ const evaluateBoard = gameState => {};
 */
 const checkMoveValidity = gameState => {
 	return (
-		gameState.blockClicked.present === 0 ||
-		gameState.blockClicked.color === gameState.color
+		gameState.isGameActive &&
+		(gameState.blockClicked.present === 0 ||
+			gameState.blockClicked.color === gameState.color)
 	);
 };
 
@@ -146,7 +176,6 @@ const reaction = (renderQueue, gameState) => {
 /* To react to the render queue i.e. keep updating and splitting molecules while the block is not null 
 Once render Queue length reaches 0 set gameState.updating to false & clear the interval */
 const updateBlocks = (renderQueue, gameState) => {
-	console.log('updateBlocks');
 	let counter = 0,
 		currBlock = renderQueue[counter];
 
@@ -169,7 +198,12 @@ const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
 		gameState.updating = reaction(renderQueue, gameState);
 	} else {
 		clearInterval(interval);
-		/* TODO: Evaluate board */
+
+		/* Update Current players total turn */
+		const newPlayers = [...gameState.players];
+		newPlayers[gameState.turn].turnsCount++;
+		gameState.players = newPlayers;
+
 		evaluateBoard(gameState);
 		setNextPlayerTurn(gameState);
 
@@ -195,6 +229,7 @@ export const executeMove = gameState => {
 			let renderQueue = [];
 			renderQueue.push(gameState.blockClicked);
 			renderQueue.push(null);
+
 			handleUpdateEvents(dispatch, gameState, renderQueue);
 
 			/* render reaction after each renderInterval */

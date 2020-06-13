@@ -27,7 +27,9 @@ class Game extends Component {
 		return (
 			<div className='game-container'>
 				{/* Game  Status */}
-				<div className='game-status'>{isGameActive ? status : winner.name}</div>
+				<div className='game-status'>
+					{isGameActive ? status : winner.name + ' Won'}
+				</div>
 				{/* Game Controls: UNDO RESET */}
 				<Board
 					grid={grid}
@@ -39,7 +41,8 @@ class Game extends Component {
 							turn,
 							color: currentColor,
 							blocks,
-							players
+							players,
+							isGameActive
 						};
 						this.props.executeMove(gameState);
 					}}

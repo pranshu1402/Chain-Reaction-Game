@@ -17,8 +17,17 @@ class Landing extends React.Component {
 	getPlayerData = (players, player) => {
 		const id = `#player${player}`;
 		const name = document.querySelector(`${id} .player-name`).value;
-		const color = document.querySelector(`${id} .player-color`).value;
-		players.push({ id, name, color, cellCount: 0, turnsCount: 0 });
+		const color = document
+			.querySelector(`${id} .player-color`)
+			.value.toLowerCase();
+		players.push({
+			id,
+			name,
+			color,
+			cellCount: 0,
+			turnsCount: 0,
+			isActive: true
+		});
 		return name && color ? true : false;
 	};
 
@@ -31,15 +40,29 @@ class Landing extends React.Component {
 
 		if (shouldInitGame) {
 			console.log(players);
-			this.props.initGame({ ...this.state, players });
+			this.props.initializeGame({ ...this.state, players });
 			this.props.history.push('/game');
 		} else {
 			/* For debugging purposes */
 			this.props.initializeGame({
 				...this.state,
 				players: [
-					{ id: 'p1', name: 'a', color: 'red' },
-					{ id: 'p2', name: 'b', color: 'blue' }
+					{
+						id: 'p1',
+						name: 'a',
+						color: 'red',
+						cellCount: 0,
+						turnsCount: 0,
+						isActive: true
+					},
+					{
+						id: 'p2',
+						name: 'b',
+						color: 'blue',
+						cellCount: 0,
+						turnsCount: 0,
+						isActive: true
+					}
 				]
 			});
 
