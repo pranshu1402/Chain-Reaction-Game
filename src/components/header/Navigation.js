@@ -4,16 +4,11 @@ const Navigation = () => {
 	return (
 		<nav>
 			<ul className='nav-list'>
-				<li>
+				{/* <li>
 					<a className='list-link' href='/history'>
 						MATCHES
 					</a>
-				</li>
-				<li>
-					<a className='list-link' href='/about'>
-						ABOUT
-					</a>
-				</li>
+				</li> */}
 				<li>
 					<a className='list-link' href='/rules'>
 						RULES

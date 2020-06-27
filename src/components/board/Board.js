@@ -18,6 +18,7 @@ const Board = props => {
 					blockData={block}
 					color={props.color}
 					grid={props.grid}
+					isGameActive={props.isGameActive}
 					onBlockClick={props.onBlockClick}
 				/>
 			))}

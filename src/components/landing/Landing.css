@@ -2,13 +2,16 @@
 	position: relative;
 	border: 1px solid #eee;
 	width: 450px;
-	height: 450px;
+	min-height: 450px;
 	margin: 20px auto;
+	display: grid;
+	grid-template-columns: 50% 50%;
 	box-shadow: 0 0 10px 3px #eee;
 	text-align: center;
 }
 
 .title {
+	grid-area: 1/1/2/3;
 	padding: 10px;
 	color: #3a4091;
 	border-bottom: 1px solid #000;
@@ -16,8 +19,25 @@
 	font-weight: 500;
 }
 
-.description {
-	font-size: 0.9em;
-	font-weight: 400;
-	font-style: italic;
+.form-group {
+	grid-area: 2/1/3/3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-group .form-control {
+	text-align: center;
+	padding: 0;
+	margin: 0 5px;
+	height: 30px;
+	border-bottom: 2px solid orange;
+}
+
+.player-init-panel {
+	grid-area: 3/1/4/3;
+}
+
+.game-control {
+	margin: 10px auto;
 }

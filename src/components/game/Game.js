@@ -3,6 +3,7 @@ import Board from '../board/Board';
 import { connect } from 'react-redux';
 import * as actions from './GameActions';
 import './Game.css';
+import GameControls from './GameControls';
 
 class Game extends Component {
 	render() {
@@ -31,10 +32,12 @@ class Game extends Component {
 					{isGameActive ? status : winner.name + ' Won'}
 				</div>
 				{/* Game Controls: UNDO RESET */}
+				<GameControls />
 				<Board
 					grid={grid}
 					blocks={blocks}
 					color={currentColor}
+					isGameActive={isGameActive}
 					onBlockClick={blockClicked => {
 						const gameState = {
 							blockClicked,

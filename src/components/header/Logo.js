@@ -4,7 +4,7 @@ const Logo = () => {
 	return (
 		<div className='logo-container'>
 			<a href='/home' className='logo'>
-				LOGO
+				Chain Rx
 			</a>
 		</div>
 	);

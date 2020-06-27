@@ -2,6 +2,7 @@ import React from 'react';
 import PlayerInit from '../player/PlayerInit';
 import { connect } from 'react-redux';
 import { initGame } from '../game/GameActions';
+import { colors } from '../../constants/index';
 import { INITIALIZE_GAME } from '../../constants/ActionTypes';
 import './Landing.css';
 
@@ -10,63 +11,45 @@ class Landing extends React.Component {
 		super(props);
 		this.state = {
 			grid: 8,
-			numPlayers: 2
+			numPlayers: 2,
+			playerData: [this.createNewPlayer(0), this.createNewPlayer(1)]
 		};
 	}
 
-	getPlayerData = (players, player) => {
-		const id = `#player${player}`;
-		const name = document.querySelector(`${id} .player-name`).value;
-		const color = document
-			.querySelector(`${id} .player-color`)
-			.value.toLowerCase();
-		players.push({
-			id,
-			name,
-			color,
+	createNewPlayer = index => {
+		return {
+			id: `player${index}`,
+			name: '',
+			color: colors[index],
 			cellCount: 0,
 			turnsCount: 0,
 			isActive: true
-		});
-		return name && color ? true : false;
+		};
+	};
+
+	updatePlayerData = () => {
+		const newPlayerData = [...this.state.playerData];
+		for (const player of newPlayerData) {
+			const playerInput = document.querySelector('#' + player.id);
+			player.name = playerInput.value;
+		}
+
+		return newPlayerData;
 	};
 
 	handleGameStart = () => {
-		let shouldInitGame = true;
-		const players = [];
-		for (let i = 0; i < this.state.numPlayers; i++) {
-			shouldInitGame = shouldInitGame && this.getPlayerData(players, i + 1);
-		}
+		this.props.initializeGame(this.state);
+		this.props.history.push('/game');
+	};
 
-		if (shouldInitGame) {
-			console.log(players);
-			this.props.initializeGame({ ...this.state, players });
-			this.props.history.push('/game');
+	handlePlayerIncrement = () => {
+		const numPlayers = this.state.numPlayers;
+		if (numPlayers < 8) {
+			const newPlayerData = this.updatePlayerData();
+			newPlayerData.push(this.createNewPlayer(numPlayers));
+			this.setState({ numPlayers: numPlayers + 1, playerData: newPlayerData });
 		} else {
-			/* For debugging purposes */
-			this.props.initializeGame({
-				...this.state,
-				players: [
-					{
-						id: 'p1',
-						name: 'a',
-						color: 'red',
-						cellCount: 0,
-						turnsCount: 0,
-						isActive: true
-					},
-					{
-						id: 'p2',
-						name: 'b',
-						color: 'blue',
-						cellCount: 0,
-						turnsCount: 0,
-						isActive: true
-					}
-				]
-			});
-
-			this.props.history.push('/game');
+			/* Snackbar/Toast */
 		}
 	};
 
@@ -75,7 +58,7 @@ class Landing extends React.Component {
 			<div className='landing-container'>
 				<p className='title'>CHAIN REACTION</p>
 				<div className='form-group'>
-					<label htmlFor='gridQty'>Grid:</label>
+					<label htmlFor='gridQty'>Grid Size :</label>
 					<input
 						type='number'
 						id='gridQty'
@@ -85,16 +68,17 @@ class Landing extends React.Component {
 						min='4'
 						max='8'
 					/>
-					<span>Choose Grid Size Between 4-8 (Default: 8)</span>
 				</div>
 
-				<p className='description'>
-					Please enter your name and choose the color to proceed.
-				</p>
-				<PlayerInit serial='1' />
-				<PlayerInit serial='2' />
-				{/* <button>ADD PLAYER</button> */}
-				<button className='' onClick={this.handleGameStart}>
+				<PlayerInit
+					playerNum={this.state.numPlayers}
+					playerData={this.state.playerData}
+				/>
+
+				<button className='game-control' onClick={this.handlePlayerIncrement}>
+					ADD PLAYER
+				</button>
+				<button className='game-control' onClick={this.handleGameStart}>
 					START GAME
 				</button>
 			</div>

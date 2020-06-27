@@ -51,10 +51,10 @@ export const initGame = homeState => {
 	const newState = {};
 	newState.grid = homeState.grid;
 	newState.numPlayers = homeState.numPlayers;
-	newState.players = homeState.players;
+	newState.players = homeState.playerData;
 	newState.blocks = createNewBlocks(newState.grid);
 	newState.turn = 0;
-	newState.color = homeState.players[0].color;
+	newState.color = homeState.playerData[0].color;
 	newState.isGameActive = true;
 	return newState;
 };
@@ -80,19 +80,27 @@ const calcCoordinates = (direction, block) => {
 const setNextPlayerTurn = newState => {
 	newState.turn++;
 	newState.turn %= newState.players.length;
+	while (!newState.players[newState.turn].isActive) {
+		newState.turn++;
+		newState.turn %= newState.players.length;
+	}
+
 	newState.color = newState.players[newState.turn].color;
 };
 
 const evaluateBoard = gameState => {
-	const newPlayers = [...gameState.players];
+	const players = [...gameState.players];
 	for (const blockId in gameState.blocks) {
-		const player = Number(gameState.blocks[blockId].player.slice(1));
-		newPlayers[player].cellCount += 1;
+		const block = gameState.blocks[blockId];
+		if (block.present) {
+			const player = Number(block.player.slice(1));
+			players[player].cellCount += 1;
+		}
 	}
 
 	let activePlayers = 0,
 		winningCandidate = { cellCount: 0 };
-	for (const player of newPlayers) {
+	for (const player of players) {
 		if (player.cellCount || !player.turnsCount) {
 			activePlayers++;
 			if (player.cellCount > winningCandidate.cellCount)
@@ -100,18 +108,16 @@ const evaluateBoard = gameState => {
 		} else {
 			player.isActive = false;
 		}
+
+		player.cellCount = 0;
 	}
 
+	console.log('activePlayers', activePlayers);
 	if (activePlayers === 1) {
 		/* Stop the game */
-		return {
-			...gameState,
-			isGameActive: false,
-			winner: winningCandidate
-		};
-		/* TODO: Update status & Reset block */
-	} else {
-		return gameState;
+		gameState.isGameActive = false;
+		gameState.winner = winningCandidate;
+		gameState.color = 'grey';
 	}
 };
 
@@ -130,7 +136,6 @@ const checkMoveValidity = gameState => {
 
 /* Update a block = increase the count of the atoms and decide if it can/will burst */
 const updateBlockMolecule = (block, color, turn) => {
-	console.log('updateBlockMolecule');
 	if (block.willSplit) {
 		block.present = 0;
 		block.color = '';
@@ -150,7 +155,6 @@ const updateBlockMolecule = (block, color, turn) => {
 Once render Queue length reaches 0 set gameState.updating to false & clear the interval */
 const reaction = (renderQueue, gameState) => {
 	let currBlock = renderQueue.shift();
-	console.log('reaction', currBlock);
 	while (currBlock) {
 		if (currBlock.shouldSplit) {
 			for (const direction of directions) {
@@ -162,7 +166,6 @@ const reaction = (renderQueue, gameState) => {
 			}
 		}
 		currBlock = renderQueue.shift();
-		console.log('reactionIn', currBlock);
 	}
 
 	if (renderQueue.length) {
@@ -205,7 +208,8 @@ const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
 		gameState.players = newPlayers;
 
 		evaluateBoard(gameState);
-		setNextPlayerTurn(gameState);
+		console.log('evaluated Board', gameState);
+		if (gameState.isGameActive) setNextPlayerTurn(gameState);
 
 		/* When updating stops dispatch next player turn */
 		dispatch({
@@ -217,7 +221,6 @@ const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
 
 /* Execute move */
 export const executeMove = gameState => {
-	console.log('executing move');
 	return dispatch => {
 		if (checkMoveValidity(gameState)) {
 			/* Start the update procedure:

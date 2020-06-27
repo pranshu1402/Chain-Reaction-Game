@@ -24,7 +24,6 @@ class ShootAtom extends Component {
 		};
 
 		options[this.props.shootDirection] = true;
-		console.log(options);
 		return (
 			<Slide {...options}>
 				<Atom color={this.props.color} />

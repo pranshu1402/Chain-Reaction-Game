@@ -1,6 +1,6 @@
 .game-container {
 	width: 460px;
-	height: 460px;
+	min-height: 460px;
 	position: relative;
 	margin: auto;
 	border: 1px solid #eee;
@@ -10,4 +10,22 @@
 .game-status {
 	color: black;
 	font-size: 16px;
+	text-align: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #bbb;
+}
+
+.game-controls-container {
+	display: flex;
+	justify-content: center;
+}
+
+.game-control {
+	width: 150px;
+	height: 40px;
+	margin: 10px;
+	color: white;
+	border-color: transparent;
+	background-color: orange;
+	cursor: pointer;
 }

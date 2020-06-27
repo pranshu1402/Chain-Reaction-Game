@@ -7,7 +7,6 @@ import './Molecule.css';
 const getAtoms = (count, color, moleculeId, directions) => {
 	const atoms = [];
 	if (directions) {
-		console.log(directions);
 		let counter = 0;
 		while (counter < count) {
 			atoms.push(
@@ -38,7 +37,6 @@ const getAtoms = (count, color, moleculeId, directions) => {
 };
 
 const getSphereComponent = props => {
-	console.log(props);
 	const { sphereCount, color, isBurstRequired, directions, moleculeId } = props;
 	switch (sphereCount) {
 		case 1:

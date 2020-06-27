@@ -13,6 +13,7 @@
 
 .block {
 	margin-top: -2px;
+	cursor: pointer;
 }
 
 .block:before {
@@ -24,4 +25,8 @@
 	height: 100%;
 	margin: 0;
 	border-color: inherit;
+}
+
+.-inactive {
+	cursor: default;
 }

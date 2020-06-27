@@ -8,7 +8,6 @@ const Atom = props => {
 
 		/* To trigger transition */
 		setTimeout(() => {
-			console.log(props.atomId);
 			const atom = document.getElementById(props.atomId);
 			atom && atom.classList.add(`-${props.shootDirection.direction}`);
 		}, 1);
