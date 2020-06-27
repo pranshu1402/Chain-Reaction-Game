@@ -29,7 +29,9 @@ class Game extends Component {
 			<div className='game-container'>
 				{/* Game  Status */}
 				<div className='game-status'>
-					{isGameActive ? status : winner.name + ' Won'}
+					{isGameActive
+						? status
+						: (winner.name ? winner.name : winner.id) + ' Won'}
 				</div>
 				{/* Game Controls: UNDO RESET */}
 				<GameControls />
