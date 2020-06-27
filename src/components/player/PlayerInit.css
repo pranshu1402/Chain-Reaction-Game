@@ -1,0 +1,38 @@
+.player-init-panel {
+	display: grid;
+	grid-auto-rows: minmax(50px, 60px);
+}
+
+.player-init-tile {
+	display: grid;
+	grid-template-columns: 20% 60% 20%;
+	text-align: start;
+}
+
+.player-init-tile h4 {
+	margin-left: 30px;
+	padding: 5px;
+}
+
+.player-color {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin: auto 50%;
+}
+
+.player-name {
+	margin-left: 30px;
+}
+
+.delete {
+	color: rgba(255, 0, 0, 0.8);
+	background-color: transparent;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin: auto;
+	padding: 1px;
+	font-weight: bold;
+	cursor: pointer;
+}

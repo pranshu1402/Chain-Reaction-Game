@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import DrawerToggle from './sideDrawer/DrawerToggle';
+import ToolBar from './toolbar/ToolBar';
+import SideDrawer from './sideDrawer/SideDrawer';
+// import Logo from './Logo';
+import './Header.css';
 
 const Header = () => {
-    return (
-        <div className="App_Header">
-            {/* Logo */}
-            <div className="Logo">Chain Rxn</div>
+	const [openDrawer, setOpenDrawer] = useState(false);
 
-            {/* Need to make it mobile friendly with navbar toggle */}
-            <div className="toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+	return (
+		<div className='app-header'>
+			<ToolBar setOpenDrawer={setOpenDrawer} openDrawer={openDrawer} />
 
-            {/* Navbar - list of links */}
-            <nav></nav>
-        </div>
-    );
+			<SideDrawer
+				open={openDrawer}
+				onCurtainClick={() => setOpenDrawer(!openDrawer)}
+			/>
+		</div>
+	);
 };
 
 export default Header;

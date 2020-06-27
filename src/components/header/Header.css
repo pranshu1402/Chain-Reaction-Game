@@ -1,0 +1,59 @@
+.app-header {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	box-shadow: 0 0 15px -3px #aaa;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+/* Logo Styling */
+.logo-container {
+	margin: 1em;
+	font-weight: 800;
+	font-size: 1.2em;
+}
+
+.logo {
+	text-decoration: none;
+	background-image: linear-gradient(92deg, #f35626 0%, #feab3a 100%);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* Logo Styling End*/
+
+/* Navigation Links Styling Start*/
+.nav-list {
+	display: flex;
+}
+
+.list-link {
+	color: #000;
+	font-weight: 400;
+	margin: 8px;
+	transition: 0.25s color;
+}
+
+li:hover .list-link {
+	color: orange;
+}
+
+/* Navigation Links Styling End*/
+
+/* Toolbar Styling */
+.header-toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+	.toolbar-navigation {
+		display: none;
+	}
+}
+/* Toolbar Styling End*/

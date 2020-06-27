@@ -1,15 +1,20 @@
 import React from 'react';
 import Layout from './components/layout/Layout';
-import Board from './components/board/Board';
+import Game from './components/game/Game';
+import Landing from './components/landing/Landing';
 import './App.css';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
-function App() {
-		return (
-				<React.Fragment>
-					{/* Implementing routing here */}
-					<Layout><Board/></Layout>
-				</React.Fragment>
-		);
-}
+const App = () => {
+	return (
+		<Layout>
+			<Switch>
+				<Route exact component={Game} path='/game' />
+				<Route component={Landing} path='/' />
+				<Redirect to='/' />
+			</Switch>
+		</Layout>
+	);
+};
 
-export default App;
+export default withRouter(App);

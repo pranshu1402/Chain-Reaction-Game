@@ -1,0 +1,58 @@
+.molecule {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.molecule > .atom:not(.shoot) {
+	left: 5%;
+	top: 15%;
+}
+
+.molecule > .atom:not(.shoot):nth-child(2) {
+	left: 40%;
+	top: 10%;
+}
+
+.molecule > .atom:not(.shoot):nth-child(3) {
+	left: 25%;
+	top: 40%;
+}
+
+.atom {
+	position: absolute;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	left: 10px;
+	top: 15px;
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.atom.shoot {
+	top: 35%;
+	left: -35%;
+	opacity: 100%;
+	transition: transform 0.25s ease-out, opacity 0.05s ease-in-out 0.2s;
+}
+
+.shoot.-top {
+	opacity: 0%;
+	transform: translateY(-50px);
+}
+
+.shoot.-right {
+	opacity: 0%;
+	transform: translateX(50px);
+}
+
+.shoot.-bottom {
+	opacity: 0%;
+	transform: translateY(50px);
+}
+
+.shoot.-left {
+	opacity: 0%;
+	transform: translateX(50px);
+}
