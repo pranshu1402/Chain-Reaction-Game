@@ -5,7 +5,7 @@ import './SideDrawer.css';
 
 const SideDrawer = props => {
 	const sideDrawerClassName = `side-drawer-container ${[
-		props.open ? 'open-drawer' : '',
+		props.open ? 'open-drawer' : ''
 	]}`;
 
 	return (
@@ -13,7 +13,7 @@ const SideDrawer = props => {
 			<div className='side-drawer'>
 				<Logo />
 				<div className='side-drawer-navigation'>
-					<Navigation />
+					<Navigation onLinkClick={props.onCurtainClick} />
 				</div>
 			</div>
 			<div className='side-drawer-curtain' onClick={props.onCurtainClick}></div>

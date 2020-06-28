@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = props => {
 	return (
 		<nav>
 			<ul className='nav-list'>
@@ -10,20 +11,20 @@ const Navigation = () => {
 					</a>
 				</li> */}
 				<li>
-					<a className='list-link' href='/rules'>
-						RULES
-					</a>
+					<Link className='list-link' to='/help' onClick={props.onLinkClick}>
+						HELP
+					</Link>
 				</li>
 				<li>
-					<a className='list-link' href='/contact'>
-						CONTACT
-					</a>
+					<Link className='list-link' to='/support' onClick={props.onLinkClick}>
+						SUPPORT
+					</Link>
 				</li>
-				<li>
+				{/* <li>
 					<a className='list-link' href='/auth'>
 						LOGIN
 					</a>
-				</li>
+				</li> */}
 			</ul>
 		</nav>
 	);

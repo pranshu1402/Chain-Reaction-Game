@@ -30,6 +30,11 @@
 /* Navigation links in Side Drawer Styling */
 .side-drawer-navigation .nav-list {
 	flex-direction: column;
+	align-items: flex-start;
+}
+
+.side-drawer-navigation .nav-list li {
+	padding: 10px;
 }
 
 /* App SideDrawer Toggle Styling */
@@ -59,7 +64,9 @@
 /* Curtain Styling */
 .side-drawer-curtain {
 	position: absolute;
-	width: 100%;
+	top: 0;
+	left: 0;
+	width: 100vw;
 	height: 100vh;
 	background-color: transparent;
 	z-index: -1;

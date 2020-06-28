@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Logo = () => {
 	return (
 		<div className='logo-container'>
-			<a href='/home' className='logo'>
+			<Link to='/home' className='logo'>
 				Chain Rx
-			</a>
+			</Link>
 		</div>
 	);
 };
