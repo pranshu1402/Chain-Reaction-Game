@@ -3,7 +3,6 @@ import Board from '../board/Board';
 import { connect } from 'react-redux';
 import * as actions from './GameActions';
 import './Game.css';
-import GameControls from './GameControls';
 
 class Game extends Component {
 	render() {
