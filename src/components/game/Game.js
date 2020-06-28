@@ -34,7 +34,7 @@ class Game extends Component {
 						: (winner.name ? winner.name : winner.id) + ' Won'}
 				</div>
 				{/* Game Controls: UNDO RESET */}
-				<GameControls />
+				{/* <GameControls /> */}
 				<Board
 					grid={grid}
 					blocks={blocks}

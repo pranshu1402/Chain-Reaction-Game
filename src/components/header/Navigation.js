@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = props => {
 	return (
 		<nav>
 			<ul className='nav-list'>
@@ -11,12 +11,12 @@ const Navigation = () => {
 					</a>
 				</li> */}
 				<li>
-					<Link className='list-link' to='/help'>
+					<Link className='list-link' to='/help' onClick={props.onLinkClick}>
 						HELP
 					</Link>
 				</li>
 				<li>
-					<Link className='list-link' to='/support'>
+					<Link className='list-link' to='/support' onClick={props.onLinkClick}>
 						SUPPORT
 					</Link>
 				</li>

@@ -3,4 +3,16 @@
 	height: 400px;
 	margin: 25px auto;
 	position: relative;
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	grid-template-rows: repeat(8, 1fr);
+}
+
+@media screen and (max-width: 767px) {
+	.game-board {
+		width: 100%;
+		height: 100vw;
+		padding: 10px;
+		box-sizing: border-box;
+	}
 }
