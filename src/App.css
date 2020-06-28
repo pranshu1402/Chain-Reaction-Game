@@ -8,3 +8,7 @@ input {
 	border-radius: 0;
 	text-decoration: none;
 }
+
+.form-group {
+	margin: 10px;
+}
