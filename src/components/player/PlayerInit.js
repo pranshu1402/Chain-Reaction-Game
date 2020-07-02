@@ -7,7 +7,12 @@ const PlayerInit = props => {
 
 	for (let i = 0; i < props.playerNum; i++) {
 		players.push(
-			<PlayerInput key={`player${i}`} serial={i} {...props.playerData[i]} />
+			<PlayerInput
+				key={`player${i}`}
+				serial={i}
+				handleDeletePlayer={props.handleDeletePlayer}
+				{...props.playerData[i]}
+			/>
 		);
 	}
 

@@ -4,7 +4,7 @@ const PlayerInput = props => {
 	const [name, setName] = useState(props.name);
 
 	return (
-		<div className='player-init-tile'>
+		<div className='player-init-tile' id={props.serial}>
 			<div
 				className='player-color'
 				style={{ backgroundColor: props.color }}
@@ -17,7 +17,13 @@ const PlayerInput = props => {
 				value={name}
 				onChange={e => setName(e.target.value)}
 			/>
-			<button className='delete'>X</button>
+			<button
+				className='delete'
+				disabled={!props.handleDeletePlayer}
+				onClick={props.handleDeletePlayer}
+			>
+				<span></span>
+			</button>
 		</div>
 	);
 };
