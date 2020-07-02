@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Atom = props => {
-	let atomClasses = 'atom';
+	const atom = useRef(null);
+	const shootDirection = props.shootDirection;
 
-	if (props.shootDirection) {
-		atomClasses = 'atom shoot';
+	useEffect(() => {
+		if (shootDirection) {
+			console.log(atom);
+			atom.current.classList.add(`-${shootDirection.direction}`);
+		}
+	}, [shootDirection]);
 
-		/* To trigger transition */
-		setTimeout(() => {
-			const atom = document.getElementById(props.atomId);
-			atom && atom.classList.add(`-${props.shootDirection.direction}`);
-		}, 1);
-	}
 	return (
 		<span
 			id={props.atomId}
-			className={atomClasses}
+			ref={atom}
+			className={`atom ${props.shootDirection ? 'shoot' : ''}`}
 			style={{ backgroundColor: props.color }}
 		></span>
 	);

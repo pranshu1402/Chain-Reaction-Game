@@ -59,14 +59,14 @@ export const initGame = homeState => {
 	return newState;
 };
 
-const calcCoordinates = (direction, block) => {
+const calcCoordinates = (direction, block, gridSize) => {
 	let row = block.row;
 	let col = block.col;
 
 	row += direction.row;
 	col += direction.col;
-
-	if (row >= 0 && col >= 0) {
+	console.log(row, col, gridSize);
+	if (row >= 0 && row < gridSize && col >= 0 && col < gridSize) {
 		return `${row}${col}`;
 	} else {
 		return '';
@@ -158,8 +158,14 @@ const reaction = (renderQueue, gameState) => {
 	while (currBlock) {
 		if (currBlock.shouldSplit) {
 			for (const direction of directions) {
-				const neighbourBlockId = calcCoordinates(direction, currBlock);
+				const neighbourBlockId = calcCoordinates(
+					direction,
+					currBlock,
+					gameState.grid
+				);
+				console.log(direction, neighbourBlockId);
 				if (neighbourBlockId) {
+					console.log(neighbourBlockId);
 					currBlock.directions.push(direction);
 					renderQueue.push(gameState.blocks[neighbourBlockId]);
 				}
@@ -224,10 +230,10 @@ export const executeMove = gameState => {
 	return dispatch => {
 		if (checkMoveValidity(gameState)) {
 			/* Start the update procedure:
-			- Set gameState to updating
-			- Add the current block to a render queue along with a null object
-			- set interval to call the render function
-		*/
+				- Set gameState to updating
+				- Add the current block to a render queue along with a null object
+				- set interval to call the render function
+			*/
 			gameState.updating = true;
 			let renderQueue = [];
 			renderQueue.push(gameState.blockClicked);
@@ -238,7 +244,7 @@ export const executeMove = gameState => {
 			/* render reaction after each renderInterval */
 			interval = setInterval(
 				() => handleUpdateEvents(dispatch, gameState, renderQueue),
-				260
+				250
 			);
 		} else {
 			/* dispatch error message for snackbar */

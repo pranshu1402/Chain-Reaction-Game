@@ -21,38 +21,38 @@
 
 .atom {
 	position: absolute;
-	display: inline-block;
 	width: 20px;
 	height: 20px;
 	left: 10px;
 	top: 15px;
 	border-radius: 50%;
 	border: 1px solid black;
+	visibility: visible;
+	transform: translateX(0) translateY(0);
+	transition: transform 0.25s ease-in-out, visibility 0s 0.25s;
 }
 
 .atom.shoot {
 	top: 35%;
 	left: -35%;
-	opacity: 100%;
-	transition: transform 0.25s ease-out, opacity 0.05s ease-in-out 0.2s;
 }
 
 .shoot.-top {
-	opacity: 0%;
+	visibility: hidden;
 	transform: translateY(-50px);
 }
 
 .shoot.-right {
-	opacity: 0%;
+	visibility: hidden;
 	transform: translateX(50px);
 }
 
 .shoot.-bottom {
-	opacity: 0%;
+	visibility: hidden;
 	transform: translateY(50px);
 }
 
 .shoot.-left {
-	opacity: 0%;
-	transform: translateX(50px);
+	visibility: hidden;
+	transform: translateX(-50px);
 }

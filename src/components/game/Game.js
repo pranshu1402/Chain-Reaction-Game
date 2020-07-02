@@ -12,6 +12,7 @@ class Game extends Component {
 			turn,
 			players,
 			isGameActive,
+			updating,
 			grid,
 			history,
 			winner,
@@ -44,11 +45,13 @@ class Game extends Component {
 							blockClicked,
 							turn,
 							color: currentColor,
+							grid,
 							blocks,
 							players,
 							isGameActive
 						};
-						this.props.executeMove(gameState);
+						/* If game is not in the middle of updates then execute moves */
+						!updating && this.props.executeMove(gameState);
 					}}
 				/>
 				{/* Leaderboard */}
@@ -65,6 +68,7 @@ const mapStateToProps = state => {
 		turn: state.game.turn,
 		players: state.game.players,
 		isGameActive: state.game.isGameActive,
+		updating: state.game.updating,
 		winner: state.game.winner,
 		status: state.game.status
 	};
