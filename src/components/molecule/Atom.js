@@ -5,10 +5,8 @@ const Atom = props => {
 	const shootDirection = props.shootDirection;
 
 	useEffect(() => {
-		if (shootDirection) {
-			console.log(atom);
+		shootDirection &&
 			atom.current.classList.add(`-${shootDirection.direction}`);
-		}
 	}, [shootDirection]);
 
 	return (

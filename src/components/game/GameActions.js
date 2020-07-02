@@ -65,7 +65,6 @@ const calcCoordinates = (direction, block, gridSize) => {
 
 	row += direction.row;
 	col += direction.col;
-	console.log(row, col, gridSize);
 	if (row >= 0 && row < gridSize && col >= 0 && col < gridSize) {
 		return `${row}${col}`;
 	} else {
@@ -112,7 +111,6 @@ const evaluateBoard = gameState => {
 		player.cellCount = 0;
 	}
 
-	console.log('activePlayers', activePlayers);
 	if (activePlayers === 1) {
 		/* Stop the game */
 		gameState.isGameActive = false;
@@ -163,9 +161,7 @@ const reaction = (renderQueue, gameState) => {
 					currBlock,
 					gameState.grid
 				);
-				console.log(direction, neighbourBlockId);
 				if (neighbourBlockId) {
-					console.log(neighbourBlockId);
 					currBlock.directions.push(direction);
 					renderQueue.push(gameState.blocks[neighbourBlockId]);
 				}
@@ -214,7 +210,6 @@ const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
 		gameState.players = newPlayers;
 
 		evaluateBoard(gameState);
-		console.log('evaluated Board', gameState);
 		if (gameState.isGameActive) setNextPlayerTurn(gameState);
 
 		/* When updating stops dispatch next player turn */
