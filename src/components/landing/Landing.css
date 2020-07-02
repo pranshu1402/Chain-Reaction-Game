@@ -1,11 +1,10 @@
 .landing-container {
 	position: relative;
 	border: 1px solid #eee;
-	width: 450px;
-	min-height: 450px;
+	max-width: 450px;
+	min-height: 400px;
 	margin: 20px auto;
 	display: grid;
-	grid-template-columns: 50% 50%;
 	box-shadow: 0 0 10px 3px #eee;
 	text-align: center;
 }
@@ -19,14 +18,15 @@
 .title {
 	grid-area: 1/1/2/3;
 	padding: 10px;
-	color: #3a4091;
-	border-bottom: 1px solid #000;
+	border-bottom: 1px solid #f35626;
 	font-size: 1.4em;
 	font-weight: 500;
+	background-image: linear-gradient(92deg, #f35626 0%, #feab3a 100%);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .form-group {
-	grid-area: 2/1/3/3;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -41,9 +41,13 @@
 }
 
 .player-init-panel {
-	grid-area: 3/1/4/3;
+	grid-area: 2/1/3/3;
 }
 
 .game-control {
 	margin: 10px auto;
+	font-weight: 400;
+	color: orange;
+	border-color: #feab3a;
+	background-color: transparent;
 }

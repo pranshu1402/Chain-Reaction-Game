@@ -29,10 +29,11 @@ class Landing extends React.Component {
 
 	updatePlayerData = () => {
 		const newPlayerData = [...this.state.playerData];
-		for (const player of newPlayerData) {
-			const playerInput = document.querySelector('#' + player.id);
+		newPlayerData.map((player, index) => {
+			const playerInput = document.querySelector('#player' + index);
 			player.name = playerInput.value;
-		}
+			return '';
+		});
 
 		return newPlayerData;
 	};
@@ -53,11 +54,25 @@ class Landing extends React.Component {
 		}
 	};
 
+	handleDeletePlayer = e => {
+		const index = e.target.parentNode.id;
+		const newPlayerData = [...this.state.playerData];
+		newPlayerData.splice(index, 1);
+		newPlayerData.map(
+			(player, counter) =>
+				(player = { ...player, id: `player${counter}`, color: colors[counter] })
+		);
+		this.setState({
+			playerData: newPlayerData,
+			numPlayers: newPlayerData.length
+		});
+	};
+
 	render() {
 		return (
 			<div className='landing-container'>
 				<p className='title'>CHAIN REACTION</p>
-				<div className='form-group'>
+				{/* <div className='form-group'>
 					<label htmlFor='gridQty'>Grid Size :</label>
 					<input
 						type='number'
@@ -68,11 +83,14 @@ class Landing extends React.Component {
 						min='4'
 						max='8'
 					/>
-				</div>
+				</div> */}
 
 				<PlayerInit
 					playerNum={this.state.numPlayers}
 					playerData={this.state.playerData}
+					handleDeletePlayer={
+						this.state.numPlayers === 2 ? null : this.handleDeletePlayer
+					}
 				/>
 
 				<button className='game-control' onClick={this.handlePlayerIncrement}>
