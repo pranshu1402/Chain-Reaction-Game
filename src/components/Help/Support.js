@@ -18,7 +18,12 @@ const Support = props => {
 			shouldOpen={modalOpen}
 			{...props}
 		>
-			<form className='support-form'>
+			<form
+				className='support-form'
+				name='contact'
+				method='POST'
+				data-netlify='true'
+			>
 				<div className='form-group'>
 					<label htmlFor='userName'>Name:</label>
 					<input id='userName' className='form-control' type='text' />
@@ -33,7 +38,7 @@ const Support = props => {
 				</div>
 				<div className='form-group'>
 					<button type='submit' value='Submit' onClick={submitForm}>
-						Submit
+						Send
 					</button>
 				</div>
 			</form>

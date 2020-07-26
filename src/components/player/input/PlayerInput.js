@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const PlayerInput = props => {
 	const [name, setName] = useState(props.name);
+
+	useEffect(() => {
+		setName(props.name);
+	}, [props.name]);
 
 	return (
 		<div className='player-init-tile' id={props.serial}>

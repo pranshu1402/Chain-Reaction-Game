@@ -1,7 +1,7 @@
 import { directions } from '../../constants/index';
 import * as actionTypes from '../../constants/ActionTypes';
 
-let interval;
+// let interval;
 
 /* In blocks every block will have x and y coordinate val.
 	While executing move of a player just add [{1, 0} , {0, 1}, {-1, 0}, {0, -1}] these
@@ -132,6 +132,12 @@ const checkMoveValidity = gameState => {
 	);
 };
 
+const addToRenderQueue = (block, renderQueue) => {
+	if (renderQueue.indexOf(block) === -1) {
+		renderQueue.push(block);
+	}
+};
+
 /* Update a block = increase the count of the atoms and decide if it can/will burst */
 const updateBlockMolecule = (block, color, turn) => {
 	if (block.willSplit) {
@@ -151,10 +157,11 @@ const updateBlockMolecule = (block, color, turn) => {
 
 /* To react to the render queue i.e. keep updating and splitting molecules while the block is not null 
 Once render Queue length reaches 0 set gameState.updating to false & clear the interval */
-const reaction = (renderQueue, gameState) => {
-	let currBlock = renderQueue.shift();
-	while (currBlock) {
+const reaction = (renderQueue, updateQueue, gameState) => {
+	const newBlocks = { ...gameState.blocks };
+	for (const currBlock of renderQueue) {
 		if (currBlock.shouldSplit) {
+			currBlock.directions = [];
 			for (const direction of directions) {
 				const neighbourBlockId = calcCoordinates(
 					direction,
@@ -163,46 +170,57 @@ const reaction = (renderQueue, gameState) => {
 				);
 				if (neighbourBlockId) {
 					currBlock.directions.push(direction);
-					renderQueue.push(gameState.blocks[neighbourBlockId]);
+					updateQueue.push(gameState.blocks[neighbourBlockId]);
 				}
 			}
 		}
-		currBlock = renderQueue.shift();
+
+		newBlocks[`${currBlock.row}${currBlock.col}`] = {
+			...currBlock
+		};
 	}
 
-	if (renderQueue.length) {
-		renderQueue.push(null);
-		return true;
+	gameState.blocks = newBlocks;
+	if (updateQueue.length) {
+		updateQueue.push(null);
+		gameState.updating = true;
 	} else {
-		return false;
+		gameState.updating = false;
 	}
+
+	return gameState;
 };
 
 /* To react to the render queue i.e. keep updating and splitting molecules while the block is not null 
 Once render Queue length reaches 0 set gameState.updating to false & clear the interval */
-const updateBlocks = (renderQueue, gameState) => {
-	let counter = 0,
-		currBlock = renderQueue[counter];
+const updateBlocks = (updateQueue, gameState) => {
+	let currBlock = updateQueue.shift(),
+		renderQueue = [];
 
-	const newBlocks = { ...gameState.blocks };
 	while (currBlock) {
-		counter++;
 		updateBlockMolecule(currBlock, gameState.color, gameState.turn);
-		newBlocks[currBlock.id] = { ...currBlock };
-		currBlock = renderQueue[counter];
+		addToRenderQueue(currBlock, renderQueue);
+		currBlock = updateQueue.shift();
 	}
 
-	return newBlocks;
+	return renderQueue;
 };
 
-const handleUpdateEvents = (dispatch, gameState, renderQueue) => {
+const handleUpdateEvents = (dispatch, gameState, updateQueue) => {
 	if (gameState.updating) {
-		gameState.blocks = updateBlocks(renderQueue, gameState);
+		const renderQueue = updateBlocks(updateQueue, gameState);
+		const newGameState = reaction(renderQueue, updateQueue, gameState);
 		/* dispatch update block events */
-		dispatch({ type: actionTypes.EXECUTE_MOVE, newGameState: gameState });
-		gameState.updating = reaction(renderQueue, gameState);
+		dispatch({
+			type: actionTypes.EXECUTE_MOVE,
+			newGameState
+		});
+	}
+
+	if (gameState.updating) {
+		setTimeout(() => handleUpdateEvents(dispatch, gameState, updateQueue), 250);
 	} else {
-		clearInterval(interval);
+		// clearInterval(interval);
 
 		/* Update Current players total turn */
 		const newPlayers = [...gameState.players];
@@ -230,17 +248,11 @@ export const executeMove = gameState => {
 				- set interval to call the render function
 			*/
 			gameState.updating = true;
-			let renderQueue = [];
-			renderQueue.push(gameState.blockClicked);
-			renderQueue.push(null);
+			let updateQueue = [];
+			updateQueue.push(gameState.blockClicked);
+			updateQueue.push(null);
 
-			handleUpdateEvents(dispatch, gameState, renderQueue);
-
-			/* render reaction after each renderInterval */
-			interval = setInterval(
-				() => handleUpdateEvents(dispatch, gameState, renderQueue),
-				250
-			);
+			handleUpdateEvents(dispatch, gameState, updateQueue);
 		} else {
 			/* dispatch error message for snackbar */
 		}

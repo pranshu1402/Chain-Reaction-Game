@@ -31,7 +31,7 @@ class Game extends Component {
 				<div className='game-status'>
 					{isGameActive
 						? status
-						: (winner.name ? winner.name : winner.id) + ' Won'}
+						: (winner.name ? winner.name : winner.id + 1) + ' Won'}
 				</div>
 				{/* Game Controls: UNDO RESET */}
 				{/* <GameControls /> */}

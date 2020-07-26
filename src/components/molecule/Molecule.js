@@ -6,31 +6,19 @@ import './Molecule.css';
 
 const getAtoms = (count, color, moleculeId, directions) => {
 	const atoms = [];
-	if (directions) {
-		let counter = 0;
-		while (counter < count) {
-			atoms.push(
-				<Atom
-					key={`shoot${moleculeId}${counter}`}
-					color={color}
-					atomId={`shoot${moleculeId}${counter}`}
-					shootDirection={directions[counter]}
-				/>
-			);
+	let counter = 0;
+	while (counter < count) {
+		const key = `${directions ? 'shoot' : ''}${moleculeId}${counter}`;
+		let direction;
+		if (directions) {
+			direction = directions ? directions[counter] : '';
+		}
 
-			counter++;
-		}
-	} else {
-		let counter = 0;
-		while (counter++ < count) {
-			atoms.push(
-				<Atom
-					key={`${moleculeId}${counter}`}
-					color={color}
-					atomId={`${moleculeId}${counter}`}
-				/>
-			);
-		}
+		atoms.push(
+			<Atom key={key} color={color} atomId={key} shootDirection={direction} />
+		);
+
+		counter++;
 	}
 
 	return atoms;
@@ -38,22 +26,9 @@ const getAtoms = (count, color, moleculeId, directions) => {
 
 const getSphereComponent = props => {
 	const { sphereCount, color, isBurstRequired, directions, moleculeId } = props;
-	switch (sphereCount) {
-		case 1:
-			return getAtoms(sphereCount, color, moleculeId);
-		case 2:
-			return isBurstRequired
-				? getAtoms(sphereCount, color, moleculeId, directions)
-				: getAtoms(sphereCount, color, moleculeId);
-		case 3:
-			return isBurstRequired
-				? getAtoms(sphereCount, color, moleculeId, directions)
-				: getAtoms(sphereCount, color, moleculeId);
-		case 4:
-			return getAtoms(sphereCount, color, moleculeId, directions);
-		default:
-			return '';
-	}
+	return isBurstRequired
+		? getAtoms(sphereCount, color, moleculeId, directions)
+		: getAtoms(sphereCount, color, moleculeId);
 };
 
 const Sphere = props => {

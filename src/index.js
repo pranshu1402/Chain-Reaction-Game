@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import GameReducer from './components/game/GameReducer';
+import thunk from 'redux-thunk';
+import App from './App';
+import './index.css';
 
 const composeEnhancers =
-	process.env.NODE_ENV === 'development'
+	(process.env.NODE_ENV === 'development'
 		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		: null || compose;
+		: null) || compose;
 
 const rootReducer = combineReducers({
 	game: GameReducer
