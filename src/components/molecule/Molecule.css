@@ -29,7 +29,7 @@
 	border: 1px solid black;
 	visibility: visible;
 	transform: translateX(0) translateY(0);
-	transition: transform 0.25s ease-in-out, visibility 0s 0.25s;
+	transition: transform 0.25s linear, visibility 0s 0.25s;
 }
 
 .atom.shoot {

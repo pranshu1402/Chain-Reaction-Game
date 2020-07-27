@@ -55,16 +55,16 @@ class Landing extends React.Component {
 	};
 
 	handleDeletePlayer = e => {
-		const index = e.target.parentNode.id;
-		const newPlayerData = [...this.state.playerData];
-		newPlayerData.splice(index, 1);
-		newPlayerData.map(
-			(player, counter) =>
-				(player = { ...player, id: `player${counter}`, color: colors[counter] })
-		);
+		const index = Number(e.target.parentNode.id);
+		const playerData = this.updatePlayerData();
+		playerData.splice(index, 1);
 		this.setState({
-			playerData: newPlayerData,
-			numPlayers: newPlayerData.length
+			playerData: playerData.map((player, counter) => ({
+				...player,
+				id: `player${counter}`,
+				color: colors[counter]
+			})),
+			numPlayers: playerData.length
 		});
 	};
 

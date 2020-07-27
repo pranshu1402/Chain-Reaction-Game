@@ -40,8 +40,12 @@
 	cursor: pointer;
 }
 
+.delete[disabled] {
+	cursor: default;
+}
+
 .delete[disabled] span {
-	background-color: grey;
+	background-color: lightgray;
 }
 
 .delete span {
