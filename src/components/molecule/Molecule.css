@@ -32,27 +32,66 @@
 	transition: transform 0.25s linear, visibility 0s 0.25s;
 }
 
-.atom.shoot {
-	top: 35%;
-	left: -35%;
+@keyframes top {
+	from {
+		top: 35%;
+		left: 35%;
+	}
+
+	to {
+		top: -70%;
+		visibility: hidden;
+	}
+}
+
+@keyframes bottom {
+	from {
+		top: 35%;
+		left: 35%;
+	}
+
+	to {
+		top: 135%;
+		visibility: hidden;
+	}
+}
+
+@keyframes left {
+	from {
+		top: 35%;
+		left: 35%;
+	}
+
+	to {
+		left: -70%;
+		visibility: hidden;
+	}
+}
+
+@keyframes right {
+	from {
+		top: 35%;
+		left: 35%;
+	}
+
+	to {
+		left: 135%;
+		visibility: hidden;
+	}
 }
 
 .shoot.-top {
-	visibility: hidden;
-	transform: translateY(-50px);
+	animation: top 0.5s;
 }
 
 .shoot.-right {
-	visibility: hidden;
-	transform: translateX(50px);
+	animation: right 0.5s;
 }
 
 .shoot.-bottom {
-	visibility: hidden;
-	transform: translateY(50px);
+	animation: bottom 0.5s;
 }
 
 .shoot.-left {
-	visibility: hidden;
-	transform: translateX(-50px);
+	animation: left 0.5s;
 }

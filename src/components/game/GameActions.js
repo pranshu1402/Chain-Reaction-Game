@@ -218,7 +218,7 @@ const handleUpdateEvents = (dispatch, gameState, updateQueue) => {
 	}
 
 	if (gameState.updating) {
-		setTimeout(() => handleUpdateEvents(dispatch, gameState, updateQueue), 250);
+		setTimeout(() => handleUpdateEvents(dispatch, gameState, updateQueue), 500);
 	} else {
 		// clearInterval(interval);
 

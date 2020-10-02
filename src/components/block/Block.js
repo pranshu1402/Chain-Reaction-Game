@@ -15,12 +15,6 @@ const Block = props => {
 			style={styles}
 			onClick={() => onBlockClick(blockData)}
 		>
-			<Molecule
-				sphereCount={blockData.present}
-				isBurstRequired={false}
-				moleculeId={`atom${blockData.row}${blockData.col}`}
-				color={blockData.color}
-			/>
 			{blockData.shouldSplit ? (
 				<Molecule
 					sphereCount={blockData.capacity + 1}
@@ -30,7 +24,12 @@ const Block = props => {
 					color={props.color}
 				/>
 			) : (
-				''
+				<Molecule
+					sphereCount={blockData.present}
+					isBurstRequired={false}
+					moleculeId={`atom${blockData.row}${blockData.col}`}
+					color={blockData.color}
+				/>
 			)}
 		</button>
 	);
