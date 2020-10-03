@@ -1,22 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Atom = props => {
-	// const atom = useRef(null);
-	// const shootDirection = props.shootDirection;
-	const classNames = props.shootDirection
+	const initialClassNames = props.shootDirection
 		? `atom shoot -${props.shootDirection.direction}`
 		: 'atom';
 
-	// useEffect(() => {
-	// 	shootDirection &&
-	// 		atom.current.classList.add(`-${shootDirection.direction}`);
-	// }, [shootDirection]);
-
+	const [classnames, setClassNames] = useState(initialClassNames);
 	return (
 		<span
 			id={props.atomId}
-			className={classNames}
+			className={classnames}
 			style={{ backgroundColor: props.color }}
+			onAnimationEnd={() => setClassNames(`${classnames} hidden`)}
 		></span>
 	);
 };

@@ -29,7 +29,6 @@
 	border: 1px solid black;
 	visibility: visible;
 	transform: translateX(0) translateY(0);
-	transition: transform 0.25s linear, visibility 0s 0.25s;
 }
 
 @keyframes top {
@@ -39,8 +38,7 @@
 	}
 
 	to {
-		top: -70%;
-		visibility: hidden;
+		top: -80%;
 	}
 }
 
@@ -51,8 +49,7 @@
 	}
 
 	to {
-		top: 135%;
-		visibility: hidden;
+		top: 150%;
 	}
 }
 
@@ -63,8 +60,7 @@
 	}
 
 	to {
-		left: -70%;
-		visibility: hidden;
+		left: -135%;
 	}
 }
 
@@ -75,8 +71,7 @@
 	}
 
 	to {
-		left: 135%;
-		visibility: hidden;
+		left: 150%;
 	}
 }
 
@@ -94,4 +89,8 @@
 
 .shoot.-left {
 	animation: left 0.5s;
+}
+
+.shoot.hidden {
+	display: none;
 }

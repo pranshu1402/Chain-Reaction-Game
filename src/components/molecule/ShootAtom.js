@@ -6,12 +6,16 @@ class ShootAtom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			when: true
+			when: true,
+			atomClass: ''
 		};
 	}
 
 	componentDidMount() {
-		this.setState({ when: false });
+		this.setState({
+			// when: false,
+			atomClass: 'hidden'
+		});
 	}
 
 	render() {
@@ -26,7 +30,11 @@ class ShootAtom extends Component {
 		options[this.props.shootDirection] = true;
 		return (
 			<Slide {...options}>
-				<Atom color={this.props.color} />
+				<Atom
+					additionalClass={this.state.atomClass}
+					color={this.props.color}
+					atomId={this.props.atomId}
+				/>
 			</Slide>
 		);
 	}
