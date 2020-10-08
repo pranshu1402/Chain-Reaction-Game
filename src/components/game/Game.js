@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Board from '../board/Board';
-import { connect } from 'react-redux';
+import GameControls from './GameControls';
 import * as actions from './GameActions';
+import { connect } from 'react-redux';
 import './Game.css';
 
 class Game extends Component {
@@ -34,7 +35,7 @@ class Game extends Component {
 						: (winner.name ? winner.name : winner.id + 1) + ' Won'}
 				</div>
 				{/* Game Controls: UNDO RESET */}
-				{/* <GameControls /> */}
+				<GameControls />
 				<Board
 					grid={grid}
 					blocks={blocks}

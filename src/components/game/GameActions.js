@@ -133,7 +133,10 @@ const checkMoveValidity = gameState => {
 };
 
 const addToRenderQueue = (block, renderQueue) => {
-	if (renderQueue.indexOf(block) === -1) {
+	console.log('AddToRender', block);
+	const blockIndex = renderQueue.indexOf(block);
+	if (blockIndex === -1) {
+		console.log('AddedToRender', JSON.stringify(block));
 		renderQueue.push(block);
 	}
 };
@@ -141,7 +144,7 @@ const addToRenderQueue = (block, renderQueue) => {
 /* Update a block = increase the count of the atoms and decide if it can/will burst */
 const updateBlockMolecule = (block, color, turn) => {
 	if (block.willSplit) {
-		block.present = 0;
+		block.present -= block.capacity;
 		block.color = '';
 		block.player = '';
 		block.willSplit = false;
@@ -230,6 +233,9 @@ const handleUpdateEvents = (dispatch, gameState, updateQueue) => {
 		evaluateBoard(gameState);
 		if (gameState.isGameActive) setNextPlayerTurn(gameState);
 
+		/* remove blockClicked state */
+		delete gameState.blockClicked;
+
 		/* When updating stops dispatch next player turn */
 		dispatch({
 			type: actionTypes.INCREMENT_TURN,
@@ -243,11 +249,16 @@ export const executeMove = gameState => {
 	return dispatch => {
 		if (checkMoveValidity(gameState)) {
 			/* Start the update procedure:
+				- Set prevState for undo feature (providing ability to undo once only)
 				- Set gameState to updating
 				- Add the current block to a render queue along with a null object
 				- set interval to call the render function
 			*/
+
+			gameState.prevState = '';
+			gameState.prevState = JSON.stringify(gameState);
 			gameState.updating = true;
+
 			let updateQueue = [];
 			updateQueue.push(gameState.blockClicked);
 			updateQueue.push(null);
@@ -256,5 +267,33 @@ export const executeMove = gameState => {
 		} else {
 			/* dispatch error message for snackbar */
 		}
+	};
+};
+
+export const undoMove = () => {
+	return {
+		type: actionTypes.UNDO_MOVE
+	};
+};
+
+const resetPlayers = players => {
+	return players.map(player => ({
+		...player,
+		cellCount: 0,
+		turnsCount: 0,
+		isActive: true
+	}));
+};
+
+export const resetGame = (grid, players) => {
+	const homeState = {
+		grid,
+		numPlayers: players.length,
+		playerData: resetPlayers(players)
+	};
+
+	return {
+		type: actionTypes.RESET_GAME,
+		newGameState: initGame(homeState)
 	};
 };
