@@ -133,29 +133,31 @@ const checkMoveValidity = gameState => {
 };
 
 const addToRenderQueue = (block, renderQueue) => {
-	console.log('AddToRender', block);
+	// console.log('AddToRender', JSON.stringify(block));
 	const blockIndex = renderQueue.indexOf(block);
 	if (blockIndex === -1) {
-		console.log('AddedToRender', JSON.stringify(block));
+		// console.log('AddedToRender', JSON.stringify(block));
 		renderQueue.push(block);
 	}
 };
 
 /* Update a block = increase the count of the atoms and decide if it can/will burst */
 const updateBlockMolecule = (block, color, turn) => {
-	if (block.willSplit) {
-		block.present -= block.capacity;
-		block.color = '';
-		block.player = '';
-		block.willSplit = false;
+	block.present += 1;
+	block.color = color;
+	block.player = `p${turn}`;
+};
+
+const updateBlockSplitState = block => {
+	if (block.present > block.capacity) {
+		block.present = block.present - block.capacity - 1;
 		block.shouldSplit = true;
 	} else {
-		block.present += 1;
-		block.color = color;
-		block.player = `p${turn}`;
-		block.willSplit = block.present === block.capacity;
 		block.shouldSplit = false;
 	}
+
+	block.directions = [];
+	// console.log('block state updated', JSON.stringify(block));
 };
 
 /* To react to the render queue i.e. keep updating and splitting molecules while the block is not null 
@@ -163,8 +165,9 @@ Once render Queue length reaches 0 set gameState.updating to false & clear the i
 const reaction = (renderQueue, updateQueue, gameState) => {
 	const newBlocks = { ...gameState.blocks };
 	for (const currBlock of renderQueue) {
+		updateBlockSplitState(currBlock);
+
 		if (currBlock.shouldSplit) {
-			currBlock.directions = [];
 			for (const direction of directions) {
 				const neighbourBlockId = calcCoordinates(
 					direction,
@@ -205,6 +208,8 @@ const updateBlocks = (updateQueue, gameState) => {
 		addToRenderQueue(currBlock, renderQueue);
 		currBlock = updateQueue.shift();
 	}
+
+	// console.log('update list finished');
 
 	return renderQueue;
 };
