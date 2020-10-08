@@ -13,8 +13,8 @@ const HelpModal = props => {
 			<ol>
 				<li>All cells are initially empty.</li>
 				<li>
-					A player can place an atom in either an empty cell or cell having the
-					atoms of his color.
+					Players can place an atom/orb in either an empty cell or cell having
+					the atoms/orbs of their own assigned color.
 				</li>
 				<li>
 					When two or more atoms are placed in the same cell, they form a
