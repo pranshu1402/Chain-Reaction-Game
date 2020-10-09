@@ -25,6 +25,7 @@
 .game-controls-container {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 .game-control {
@@ -36,3 +37,21 @@
 	background-color: orange;
 	cursor: pointer;
 }
+
+.game-icon-control {
+	margin: 0 10px;
+	color: black;
+	border-color: transparent;
+	cursor: pointer;
+}
+
+.game-status {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px 0;
+	padding: 10px 30px;
+	font-weight: bold;
+}
+
+/* Create a tooltip design */

@@ -9,7 +9,8 @@ const initialGameState = {
 	color: '',
 	isGameActive: false,
 	winner: '',
-	status: 'ACTIVE'
+	status: 'Active Turn: ',
+	prevState: ''
 };
 
 const gameReducer = (state = initialGameState, action) => {
@@ -21,9 +22,9 @@ const gameReducer = (state = initialGameState, action) => {
 		case actionTypes.INCREMENT_TURN:
 			return { ...state, ...action.newGameState };
 		case actionTypes.UNDO_MOVE:
-			return { ...state, ...action.newGameState };
+			return { ...state, ...JSON.parse(state.prevState) };
 		case actionTypes.RESET_GAME:
-			return { ...initialGameState, ...action.gameState };
+			return { ...state, ...action.newGameState };
 		default:
 			break;
 	}

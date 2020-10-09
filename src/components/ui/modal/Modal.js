@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import './Modal.css';
 
 const Modal = props => {
@@ -6,7 +8,11 @@ const Modal = props => {
 
 	const closeModal = () => {
 		handleModalState(false);
-		props.history.replace('/');
+		if (props.handleModalClose) {
+			props.handleModalClose(false);
+		} else {
+			props.history.replace('/');
+		}
 	};
 
 	return (
@@ -14,14 +20,14 @@ const Modal = props => {
 			<div className='modal-curtain' onClick={closeModal}></div>
 			<div className='modal-content'>
 				<header>
-					<h3>{props.heading}</h3>
-					<button className='close' onClick={closeModal}>
-						x
-					</button>
+					<h3 className='title'>{props.heading}</h3>
+					<a href='/' onClick={closeModal}>
+						<FontAwesomeIcon icon={faTimesCircle} size={'lg'} color={'black'} />
+					</a>
 				</header>
 				{props.children}
 				{props.isDismissRequired ? (
-					<button className='dismiss' onClick={closeModal}>
+					<button className='dismiss game-control' onClick={closeModal}>
 						DISMISS
 					</button>
 				) : (

@@ -12,7 +12,7 @@ const Navigation = props => {
 				</li> */}
 				<li>
 					<Link className='list-link' to='/help' onClick={props.onLinkClick}>
-						HELP
+						RULES
 					</Link>
 				</li>
 				<li>

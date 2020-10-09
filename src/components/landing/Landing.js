@@ -32,6 +32,9 @@ class Landing extends React.Component {
 		newPlayerData.map((player, index) => {
 			const playerInput = document.querySelector('#player' + index);
 			player.name = playerInput.value;
+			if (!player.name) {
+				player.name = `Player ${index + 1}`;
+			}
 			return '';
 		});
 
@@ -39,7 +42,10 @@ class Landing extends React.Component {
 	};
 
 	handleGameStart = () => {
-		this.props.initializeGame(this.state);
+		this.props.initializeGame({
+			...this.state,
+			playerData: this.updatePlayerData()
+		});
 		this.props.history.push('/game');
 	};
 

@@ -17,7 +17,7 @@ const PlayerInput = props => {
 				type='text'
 				className='form-control player-name'
 				id={`player${props.serial}`}
-				placeholder={`Player ${props.serial}`}
+				placeholder={`Player ${props.serial + 1}`}
 				value={name}
 				onChange={e => setName(e.target.value)}
 			/>
