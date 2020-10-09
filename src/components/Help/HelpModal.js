@@ -42,7 +42,10 @@ const HelpModal = props => {
 						</li>
 					</ul>
 				</li>
-				<li>The winner is the one who eliminates every other player's orbs.</li>
+				<li>
+					The winner is the one who eliminates other players by overlapping
+					their existing spheres on board.
+				</li>
 			</ol>
 		</Modal>
 	);
