@@ -56,6 +56,8 @@ export const initGame = homeState => {
 	newState.turn = 0;
 	newState.color = homeState.playerData[0].color;
 	newState.isGameActive = true;
+	newState.status = `Active Turn: ${homeState.playerData[0].name}`;
+	newState.prevState = '';
 	return newState;
 };
 
@@ -85,6 +87,7 @@ const setNextPlayerTurn = newState => {
 	}
 
 	newState.color = newState.players[newState.turn].color;
+	newState.status = `Active Turn: ${newState.players[newState.turn].name}`;
 };
 
 const evaluateBoard = gameState => {

@@ -30,12 +30,14 @@ class Game extends Component {
 			<div className='game-container'>
 				{/* Game  Status */}
 				<div className='game-status'>
-					{isGameActive
-						? status
-						: (winner.name ? winner.name : winner.id + 1) + ' Won'}
+					<span style={{ color: currentColor }}>
+						{isGameActive
+							? status
+							: (winner.name ? winner.name : winner.id + 1) + ' Won'}
+					</span>
+					<GameControls />
 				</div>
 				{/* Game Controls: UNDO RESET */}
-				<GameControls />
 				<Board
 					grid={grid}
 					blocks={blocks}

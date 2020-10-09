@@ -9,7 +9,7 @@ const initialGameState = {
 	color: '',
 	isGameActive: false,
 	winner: '',
-	status: 'ACTIVE',
+	status: 'Active Turn: ',
 	prevState: ''
 };
 
