@@ -42,9 +42,13 @@
 	width: 500px;
 	min-height: 300px;
 	padding: 10px;
-	box-shadow: 0 0 15px 3px #ddd;
+	box-shadow: 0 0 10px 0 #888;
 	background-color: white;
 	text-align: center;
+}
+
+.modal-content ol {
+	padding-right: 30px;
 }
 
 @media screen and (max-width: 767px) {
