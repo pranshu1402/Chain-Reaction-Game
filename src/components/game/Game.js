@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Board from "../board/Board";
 import GameControls from "./GameControls";
 import { executeMove } from "./GameActions";
