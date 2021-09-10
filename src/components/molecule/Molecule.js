@@ -1,4 +1,3 @@
-import React from 'react';
 import Atom from './Atom';
 // import ShootAtom from './ShootAtom';
 import Spin from 'react-reveal/Spin';
@@ -31,7 +30,7 @@ const getSphereComponent = props => {
 		: getAtoms(sphereCount, color, moleculeId);
 };
 
-const Sphere = props => {
+const Molecule = props => {
 	const spheres = <div className='molecule'>{getSphereComponent(props)}</div>;
 
 	return props.isBurstRequired ? (
@@ -43,4 +42,4 @@ const Sphere = props => {
 	);
 };
 
-export default Sphere;
+export default Molecule;

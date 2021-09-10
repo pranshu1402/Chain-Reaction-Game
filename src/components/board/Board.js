@@ -1,4 +1,3 @@
-import React from 'react';
 import Block from '../block/Block';
 import './Board.css';
 

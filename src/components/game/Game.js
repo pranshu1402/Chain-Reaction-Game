@@ -1,9 +1,8 @@
-import React from "react";
-import Board from "../board/Board";
-import GameControls from "./GameControls";
-import { executeMove } from "./GameActions";
-import { useDispatch, useSelector } from "react-redux";
-import "./Game.css";
+import Board from '../board/Board';
+import GameControls from './GameControls';
+import { executeMove } from './GameActions';
+import { useDispatch, useSelector } from 'react-redux';
+import './Game.css';
 
 const Game = ({ history }) => {
 	const {
@@ -15,25 +14,25 @@ const Game = ({ history }) => {
 		isGameActive,
 		updating,
 		winner,
-		status,
-	} = useSelector((store) => store.game);
+		status
+	} = useSelector(store => store.game);
 
 	const dispatch = useDispatch();
 
 	if (!blocks) {
-		history.replace("/");
+		history.replace('/');
 		/* Return Toast : Game Not Started */
 		return <div>Game not started</div>;
 	}
 
 	return (
-		<div className="game-container">
+		<div className='game-container'>
 			{/* Game  Status */}
-			<div className="game-status">
+			<div className='game-status'>
 				<span style={{ color: currentColor }}>
 					{isGameActive
 						? status
-						: (winner.name ? winner.name : winner.id + 1) + " Won"}
+						: (winner.name ? winner.name : winner.id + 1) + ' Won'}
 				</span>
 				<GameControls />
 			</div>
@@ -43,7 +42,7 @@ const Game = ({ history }) => {
 				blocks={blocks}
 				color={currentColor}
 				isGameActive={isGameActive}
-				onBlockClick={(blockClicked) => {
+				onBlockClick={blockClicked => {
 					const gameState = {
 						blockClicked,
 						turn,
@@ -51,7 +50,7 @@ const Game = ({ history }) => {
 						grid,
 						blocks,
 						players,
-						isGameActive,
+						isGameActive
 					};
 					/* If game is not in the middle of updates then execute moves */
 					!updating && dispatch(executeMove(gameState));
