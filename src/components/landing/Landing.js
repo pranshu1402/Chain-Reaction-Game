@@ -24,7 +24,7 @@ const Landing = ({ history }) => {
 		playerData: [createNewPlayer(0), createNewPlayer(1)]
 	});
 
-	const updatePlayerData = isGameStart =>
+	const updatePlayerData = (isGameStart = false) =>
 		game.playerData.map((player, index) => {
 			const playerInput = document.querySelector('#player' + index);
 			const newPlayer = { ...player };
