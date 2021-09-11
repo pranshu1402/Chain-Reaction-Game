@@ -24,14 +24,19 @@ const Landing = ({ history }) => {
 		playerData: [createNewPlayer(0), createNewPlayer(1)]
 	});
 
-	const updatePlayerData = () =>
+	const updatePlayerData = isGameStart =>
 		game.playerData.map((player, index) => {
 			const playerInput = document.querySelector('#player' + index);
-			player.name = playerInput.value;
-			if (!player.name) {
-				player.name = `Player ${index + 1}`;
+			const newPlayer = { ...player };
+			newPlayer.name = playerInput.value;
+
+			if (isGameStart && !newPlayer.name) {
+				newPlayer.name = `Player ${index}`;
 			}
-			return '';
+
+			newPlayer.id = `player${index}`;
+			newPlayer.color = colors[index];
+			return newPlayer;
 		});
 
 	const handleGameStart = () => {
@@ -39,7 +44,7 @@ const Landing = ({ history }) => {
 			type: INITIALIZE_GAME,
 			gameState: initGame({
 				...game,
-				playerData: updatePlayerData()
+				playerData: updatePlayerData(true)
 			})
 		});
 
@@ -51,7 +56,6 @@ const Landing = ({ history }) => {
 		if (numPlayers < 8) {
 			const newPlayerData = updatePlayerData();
 			newPlayerData.push(createNewPlayer(numPlayers));
-			console.log({ numPlayers: numPlayers + 1, playerData: newPlayerData });
 			setGame({
 				...game,
 				numPlayers: numPlayers + 1,
@@ -67,11 +71,8 @@ const Landing = ({ history }) => {
 		const playerData = updatePlayerData();
 		playerData.splice(index, 1);
 		setGame({
-			playerData: playerData.map((player, counter) => ({
-				...player,
-				id: `player${counter}`,
-				color: colors[counter]
-			})),
+			...game,
+			playerData: playerData,
 			numPlayers: playerData.length
 		});
 	};
