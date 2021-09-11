@@ -1,18 +1,14 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import './Layout.css';
 
-const Layout = props => {
-	return (
-		<React.Fragment>
-		  <Header/>
-		  <main>
-			  {props.children}
-		  </main>
-		  <Footer/>  
-		</React.Fragment>
-	);
-};
+const Layout = props => (
+	<Fragment>
+		<Header />
+		<main>{props.children}</main>
+		<Footer />
+	</Fragment>
+);
 
 export default Layout;

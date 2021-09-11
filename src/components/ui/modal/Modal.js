@@ -21,9 +21,9 @@ const Modal = props => {
 			<div className='modal-content'>
 				<header>
 					<h3 className='title'>{props.heading}</h3>
-					<a href='/' onClick={closeModal}>
+					<button onClick={closeModal}>
 						<FontAwesomeIcon icon={faTimesCircle} size={'lg'} color={'black'} />
-					</a>
+					</button>
 				</header>
 				{props.children}
 				{props.isDismissRequired ? (
