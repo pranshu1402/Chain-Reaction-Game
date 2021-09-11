@@ -24,7 +24,7 @@ const Auth = ({ history }) => {
 		const { user, token } = await initiateSignIn(provider);
 		console.log(user, token);
 		// dispatch(authSuccess());
-		history.replace(redirectTo);
+		// history.replace(redirectTo);
 	}
 
 	return (
