@@ -1,11 +1,12 @@
 import Board from '../board/Board';
 import GameControls from './GameControls';
-import { executeMove } from './GameActions';
+import { executeMove, getLogin } from './GameActions';
 import { useDispatch, useSelector } from 'react-redux';
 import './Game.css';
 
 const Game = ({ history }) => {
 	const {
+		user,
 		grid,
 		blocks,
 		color: currentColor,
@@ -15,13 +16,18 @@ const Game = ({ history }) => {
 		updating,
 		winner,
 		status
-	} = useSelector(store => store.game);
+	} = useSelector(store => ({ ...store.game, ...store.auth }));
 
 	const dispatch = useDispatch();
 
-	if (!blocks) {
+	if (!user) {
+		dispatch(getLogin());
+		history.replace('/auth');
+		/* Toast: please login first */
+		return null;
+	} else if (!blocks) {
 		history.replace('/');
-		/* Return Toast : Game Not Started */
+		/* Toast : Game Not Started */
 		return <div>Game not started</div>;
 	}
 
@@ -36,7 +42,6 @@ const Game = ({ history }) => {
 				</span>
 				<GameControls />
 			</div>
-			{/* Game Controls: UNDO RESET */}
 			<Board
 				grid={grid}
 				blocks={blocks}
@@ -56,7 +61,7 @@ const Game = ({ history }) => {
 					!updating && dispatch(executeMove(gameState));
 				}}
 			/>
-			{/* Leaderboard */}
+			{/* Leaderboard / Scoreboard */}
 		</div>
 	);
 };

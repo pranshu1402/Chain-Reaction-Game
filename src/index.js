@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import AuthReducer from './components/auth/authReducer';
 import GameReducer from './components/game/GameReducer';
 import thunk from 'redux-thunk';
 import App from './App';
@@ -14,8 +15,8 @@ const composeEnhancers =
 		: null) || compose;
 
 const rootReducer = combineReducers({
-	game: GameReducer
-	/* auth: authReducer */
+	game: GameReducer,
+	auth: AuthReducer
 });
 
 let store = composeEnhancers

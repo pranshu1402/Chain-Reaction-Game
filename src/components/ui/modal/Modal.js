@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import './Modal.css';
 
+/* PROPS: 
+- shouldOpen
+- handleModalClose (func) / history (obj)
+- heading
+*/
 const Modal = props => {
 	const [isOpen, handleModalState] = useState(props.shouldOpen);
 
@@ -21,7 +26,7 @@ const Modal = props => {
 			<div className='modal-content'>
 				<header>
 					<h3 className='title'>{props.heading}</h3>
-					<button onClick={closeModal}>
+					<button className='modal-close-button' onClick={closeModal}>
 						<FontAwesomeIcon icon={faTimesCircle} size={'lg'} color={'black'} />
 					</button>
 				</header>

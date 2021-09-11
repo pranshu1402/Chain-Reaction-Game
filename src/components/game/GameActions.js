@@ -305,3 +305,10 @@ export const resetGame = (grid, players) => {
 		newGameState: initGame(homeState)
 	};
 };
+
+export const getLogin = () => {
+	return {
+		type: actionTypes.AUTH_SET_REDIRECT,
+		redirectTo: '/game'
+	};
+};
