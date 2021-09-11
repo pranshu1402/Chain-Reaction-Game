@@ -1,39 +1,37 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebaseApp from '../../config/firebaseConfig';
+import { getAuth } from 'firebase/auth';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
-export const authStart = () => {
-	if (!!firebase.auth().currentUser) {
-		return authSuccess();
+export const authStart = userData => {
+	if (userData) {
+		return authSuccess(userData);
 	}
+
 	return authFail('Please Sign In to continue');
 };
 
-export const authSuccess = () => {
-	const user = firebase.auth().currentUser;
-	let userData = {
+export const authSuccess = user => {
+	const userData = {
+		accessToken: user.accessToken,
 		name: user.displayName,
 		email: user.email,
 		emailVerified: user.emailVerified,
 		photoURL: user.photoURL,
 		isAnonymous: user.isAnonymous,
 		uid: user.uid,
-		providerData: user.providerData[0].providerId,
-		points: 250
+		providerData: user.providerData[0].providerId
 	};
 
-	firebase
-		.firestore()
-		.collection('users')
-		.doc(userData.uid)
-		.set(
-			{
-				profile: {
-					...userData
-				}
-			},
-			{ merge: true }
-		)
+	const db = getFirestore(firebaseApp);
+	setDoc(
+		doc(db, 'users', userData.uid),
+		{
+			profile: {
+				...userData
+			}
+		},
+		{ merge: true }
+	)
 		.then(() => console.log('Profile Updated'))
 		.catch();
 
@@ -51,8 +49,7 @@ const authFail = error => {
 };
 
 export const authLogout = () => {
-	firebase
-		.auth()
+	getAuth(firebaseApp)
 		.signOut()
 		.then(function () {
 			console.log(' Sign-out successful.');

@@ -51,6 +51,14 @@ li:hover .list-link {
 	align-items: center;
 }
 
+.greeting-banner {
+	border: 1px solid #feab3a;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: -5px;
+	margin-right: 10px;
+}
+
 @media screen and (max-width: 1024px) {
 	.toolbar-navigation {
 		display: none;

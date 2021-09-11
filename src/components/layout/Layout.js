@@ -1,30 +1,28 @@
 import { Fragment, useEffect } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-// import { useDispatch, useSelector } from 'react-redux';
 import './Layout.css';
-// import firebase from '../auth/firebaseConfig';
-// import { authStart } from '../auth/authActions';
+import firebaseApp from '../../config/firebaseConfig';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authStart } from '../auth/authActions';
+import { useHistory } from 'react-router';
 
 const Layout = props => {
-	// const { redirectTo } = useSelector(store => store.auth); /* state: user */
-	// const dispatch = useDispatch();
+	const { redirectTo } = useSelector(store => store.auth);
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	useEffect(() => {
-		// firebase.auth().onAuthStateChanged(user => {
-		// 	if (user) {
-		// 		// User is signed in.
-		// 		console.log('User is Authenticated');
-		// 		dispatch(authStart());
-		// 		redirectUser();
-		// 	}
-		// });
+		const auth = getAuth(firebaseApp);
+		onAuthStateChanged(auth, result => {
+			if (result) {
+				history.replace(redirectTo);
+			}
+			dispatch(authStart(result));
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	// function redirectUser(redirectUrl = redirectTo) {
-	// 	props.history.replace(redirectUrl);
-	// }
 
 	return (
 		<Fragment>

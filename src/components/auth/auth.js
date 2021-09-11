@@ -1,31 +1,29 @@
 import './auth.css';
 import Modal from '../ui/modal/Modal';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import firebaseApp from '../../config/firebaseConfig';
 import {
-	GoogleProvider,
-	FacebookProvider,
-	initiateSignIn
-} from './firebaseConfig';
-import { authSuccess } from './authActions';
+	getAuth,
+	signInWithRedirect,
+	GoogleAuthProvider,
+	FacebookAuthProvider
+} from 'firebase/auth';
 
 const Auth = ({ history }) => {
 	const [open, setOpen] = useState(true);
-	const { user, redirectTo } = useSelector(store => store.auth);
-	const dispatch = useDispatch();
+	const { user } = useSelector(store => store.auth);
 
 	function handleClose() {
 		setOpen(false);
 		history.goBack();
 	}
 
-	async function handleSignIn(e, provider) {
-		e.preventDefault();
-		const { user, token } = await initiateSignIn(provider);
-		console.log(user, token);
-		// dispatch(authSuccess());
-		// history.replace(redirectTo);
-	}
+	const triggerSignInProvider = (event, provider) => {
+		event.preventDefault();
+		const auth = getAuth(firebaseApp);
+		signInWithRedirect(auth, new provider()).catch(err => err);
+	};
 
 	return (
 		<Modal
@@ -33,18 +31,22 @@ const Auth = ({ history }) => {
 			handleModalClose={handleClose}
 			heading='LOG IN'
 		>
-			<div className='auth-controls'>
-				<button onClick={e => handleSignIn(e, GoogleProvider)}>
+			<div className='auth-container'>
+				<button
+					className='auth-control'
+					onClick={e => triggerSignInProvider(e, GoogleAuthProvider)}
+				>
 					Sign in with Google
 				</button>
-				<button onClick={e => handleSignIn(e, FacebookProvider)}>
+				<button
+					className='auth-control'
+					onClick={e => triggerSignInProvider(e, FacebookAuthProvider)}
+				>
 					Sign in with Facebook
 				</button>
 			</div>
 		</Modal>
 	);
 };
-
-/* onLoginComplete: () => dispatch(actions.authSuccess()) */
 
 export default Auth;

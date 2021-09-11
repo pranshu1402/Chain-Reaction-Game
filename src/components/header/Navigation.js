@@ -9,6 +9,11 @@ const Navigation = props => {
 	return (
 		<nav>
 			<ul className='nav-list'>
+				{user ? (
+					<li>
+						<div className='greeting-banner'>👋 Hello {user.name}</div>
+					</li>
+				) : null}
 				{/* <li>
 					<a className='list-link' href='/history'>
 						MATCHES
@@ -26,12 +31,13 @@ const Navigation = props => {
 				</li>
 				<li>
 					{user ? (
-						<button
+						<Link
 							className='list-link'
+							to='/'
 							onClick={() => dispatch(authLogout())}
 						>
 							LOGOUT
-						</button>
+						</Link>
 					) : (
 						<Link className='list-link' to='/auth'>
 							LOGIN
