@@ -1,0 +1,32 @@
+#GuestBtn {
+	display: block;
+	width: 220px;
+	height: 40px;
+	margin: 15px auto;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	background: rgb(226, 218, 218);
+	color: rgb(75, 71, 71);
+	border-radius: 2px;
+	font-weight: 500px;
+	padding: 8px 16px;
+	line-height: normal;
+	font-size: 14px;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+		0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.auth-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.auth-control {
+	background-color: transparent;
+	border-radius: 5px;
+	padding: 10px 5px;
+	margin-top: 30px;
+	min-width: 250px;
+	cursor: pointer;
+}

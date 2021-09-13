@@ -37,6 +37,10 @@
 	padding: 10px;
 }
 
+.side-drawer-navigation .greeting-banner {
+	margin: 0;
+}
+
 /* App SideDrawer Toggle Styling */
 .side-drawer-toggle {
 	background-color: transparent;
